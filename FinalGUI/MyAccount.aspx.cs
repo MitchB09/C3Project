@@ -119,12 +119,21 @@ public partial class MyAccount : System.Web.UI.Page
                 if (ResumeDB.FindResume(eMail))
                 {
                     //If a resumé is found update the current one                    
-                    ResumeDB.UpdateResume(eMail, fileName, fileExtention, System.DateTime.Now, documentBinary, fileSize);
+                    if (ResumeDB.UpdateResume(eMail, fileName, fileExtention, System.DateTime.Now, documentBinary, fileSize) > 0)
+                    {
+                        string script = "<script type=\"text/javascript\">alert('Resume Sucessfully Uploaded.');</script>";
+                        ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+                        
+                    }
                 }
                 else
                 {
                     //If a resumé is not found a new row is created
-                    ResumeDB.UploadResume(eMail, fileName, fileExtention, System.DateTime.Now, documentBinary, fileSize);
+                    if (ResumeDB.UploadResume(eMail, fileName, fileExtention, System.DateTime.Now, documentBinary, fileSize) > 0)
+                    {
+                        string script = "<script type=\"text/javascript\">alert('Resume Sucessfully Uploaded.');</script>";
+                        ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+                    }
                 }
                 
 

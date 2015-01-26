@@ -32,6 +32,10 @@ namespace FinalBL
             setCompanyProvince(companyProvince);
             setApprovedEmployer(approvedEmployer);
         }
+
+        public Employer() 
+        { 
+        }
             
 
         //Getters
@@ -108,6 +112,12 @@ namespace FinalBL
         public void setApprovedEmployer(bool approvedEmployer)
         {
             this.approvedEmployer = approvedEmployer;
+        }
+
+        //Others
+        public string getFullName()
+        {
+            return this.getFirstName() + " " + this.getLastName();
         }
     }
 }

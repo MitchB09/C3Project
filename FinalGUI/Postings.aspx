@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Students.aspx.cs" Inherits="Students" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Postings.aspx.cs" Inherits="Postings" %>
 
 <!DOCTYPE html>
 
@@ -27,7 +27,7 @@
                     <a href="MyAccount.aspx?eMail=">My Account</a>
                 </div>                    
                 <div  class="menuItem">
-                    <a href="#">Postings</a>
+                    <a href="Postings.aspx">Postings</a>
                 </div>            
                 <div class="menuItem">
                     <a href="#">Employers</a>
@@ -77,7 +77,7 @@
                     <a href="#">My Account</a>
                </div> 
                <div class="menuItem">
-                    <a href="#">Postings</a>
+                    <a href="Postings.aspx">Postings</a>
                 </div>
             
                 <div class="menuItem">
@@ -98,36 +98,8 @@
             </div>
 
             
-            <div id="StudentContent"  class="content" runat="server">
-                <div class="homeMenuOption">
-                    <a href="#">Go to My Account</a>
-                    <br />
-                    <small>View and make schanges to your account.</small>
-                </div>
-                <hr />
-                <div class="homeMenuOption">
-                    <a href="#">Go to Current Postings</a>
-                    <br />
-                    <small>Check out all current available posings</small>
-                </div>
-                <hr />
-                <div class="homeMenuOption">
-                    <a href="#">View List of Potential Employers</a>
-                    <br />
-                    <small>Check the list of potential employers in the province</small>
-                </div>
-                <hr />
-                <div class="homeMenuOption">
-                    <a href="#">Upload new Resum&eacute;</a>
-                    <br />
-                    <small>Change your current resume</small>
-                </div>
-                <hr />
-                <div class="homeMenuOption">
-                    <a href="#">View Practicum Information</a>
-                    <br />
-                    <small>View general information about the practicums</small>
-                </div>
+            <div id="Content"  class="content" runat="server">
+                
             </div> 
             <!--
             <div id="EmployerContent" class="content" runat="server">

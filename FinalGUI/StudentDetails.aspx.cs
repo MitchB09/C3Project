@@ -18,14 +18,14 @@ public partial class StudentDetails : System.Web.UI.Page
     {
         if (Session["eMail"] != null)
         {
-            //eMail = Session["eMail"].ToString();
+            eMail = Session["eMail"].ToString();
         }
         else
         {
             HttpContext.Current.Response.Redirect("LogIn.aspx");
         }
 
-        string eMail = Request.QueryString["eMail"];
+        eMail = Request.QueryString["eMail"];
 
         //Redirects if no usertype is present (i.e. no one is signed in)
         if (Session["usertype"] == null)

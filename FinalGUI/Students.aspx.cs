@@ -33,32 +33,23 @@ public partial class Students : System.Web.UI.Page
         }
         else if (Session["usertype"].ToString() == "Employer")
         {
-            ShowEmployer();
+            if (EmployerDB.ApprovedEmployer(eMail))
+            {
+                ShowEmployer();
+                ShowContent();
+            }
+            else
+            {
+                UnvettedContent();
+                ShowEmployer();
+            }
         }
         else if (Session["usertype"].ToString() == "Instructor")
         {
             ShowInstructor();
+            ShowContent();
         }
-
-        List<Student> studentList = new List<Student>();
-
-        try
-        {
-            studentList = StudentDB.getStudentDisplayList();
-
-            string content = "";
-
-            foreach(Student student in studentList)
-            {
-                content += "<div class=\"student\"><a href=\"StudentDetails.aspx?eMail=" + student.getEMail() + "\">" + student.getFirstName() + " " + student.getLastName() + "</a><br />" +  student.getProgram() + "<br />" + student.getCampus() + "</div><hr />";
-            }
-            StudentContent.InnerHtml = content;
-        }
-        catch(Exception ex)
-        {
-            string script = "<script type=\"text/javascript\">alert('" + ex + "');</script>";
-            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
-        }
+            
 
     }
 
@@ -87,6 +78,51 @@ public partial class Students : System.Web.UI.Page
 
         InstructorMenu.Visible = false;
         //InstructorContent.Visible = false;
+    }
+    public void ShowContent()
+    {
+        List<Student> studentList = new List<Student>();
+
+        try
+        {
+            studentList = StudentDB.getStudentDisplayList();
+
+            string content = "";
+
+            foreach (Student student in studentList)
+            {
+                content += "<div class=\"student\"><a href=\"StudentDetails.aspx?eMail=" + student.getEMail() + "\">" + student.getFirstName() + " " + student.getLastName() + "</a><br />" + student.getProgram() + "<br />" + student.getCampus() + "</div><hr />";
+            }
+            StudentContent.InnerHtml = content;
+        }
+        catch (Exception ex)
+        {
+            string script = "<script type=\"text/javascript\">alert('" + ex + "');</script>";
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+        }
+    }
+
+    public void UnvettedContent()
+    {
+        List<Student> studentList = new List<Student>();
+
+        try
+        {
+            studentList = StudentDB.getStudentDisplayList();
+
+            string content = "";
+
+            foreach (Student student in studentList)
+            {
+                content += "<div class=\"student\">" + student.getFirstName() + " " + student.getLastName().Substring(0,1) + "<br />" + student.getProgram() + "<br />" + student.getCampus() + "</div><hr />";
+            }
+            StudentContent.InnerHtml = content;
+        }
+        catch (Exception ex)
+        {
+            string script = "<script type=\"text/javascript\">alert('" + ex + "');</script>";
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+        }
     }
 
     public void ShowInstructor()

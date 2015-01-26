@@ -8,22 +8,26 @@ namespace FinalBL
 {
     public class Posting
     {
-        private string postID;
+        private int postID;
         private string empEmail;
         private DateTime dateAdded;
+        private string jobTitle;
         private string additionalInfo;
         
         //Constructor
-        public Posting(string postID, string empEmail, DateTime dateAdded, string additionalInfo)
+        public Posting(int postID, string empEmail, DateTime dateAdded, string additionalInfo)
         {
             setPostID(postID);
             setEmpEmail(empEmail);
             setDateAdded(dateAdded);
             setAdditionalInfo(additionalInfo);
         }
+
+        public Posting()
+        { }
         
         //Getters
-        public string getPostID()
+        public int getPostID()
         {
             return this.postID;
         }
@@ -35,13 +39,17 @@ namespace FinalBL
         {
             return this.dateAdded;
         }
+        public string getJobTitle()
+        {
+            return this.jobTitle;
+        }
         public string getAdditionalInfo()
         {
             return this.additionalInfo;
         }
 
         //Setters
-        public void setPostID(string postID)
+        public void setPostID(int postID)
         {
             this.postID = postID;
         }
@@ -52,6 +60,10 @@ namespace FinalBL
         public void setDateAdded(DateTime dateAdded)
         {
             this.dateAdded = dateAdded;
+        }
+        public void setJobTitle(string jobTitle)
+        {
+            this.jobTitle = jobTitle;
         }
         public void setAdditionalInfo(string additionalInfo)
         {

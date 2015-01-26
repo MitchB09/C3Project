@@ -27,7 +27,7 @@
                     <a href="MyAccount.aspx?eMail=">My Account</a>
                 </div>                    
                 <div  class="menuItem">
-                    <a href="#">Postings</a>
+                    <a href="Postings.aspx">Postings</a>
                 </div>            
                 <div class="menuItem">
                     <a href="#">Employers</a>
@@ -50,7 +50,7 @@
                     <a href="#">My Account</a>
                </div> 
                <div class="menuItem">
-                    <a href="#">Create Posting</a>
+                   <a href="CreatePosting.aspx">Create Posting</a>
                 </div>
             
                 <div class="menuItem">
@@ -77,7 +77,7 @@
                     <a href="#">My Account</a>
                </div> 
                <div class="menuItem">
-                    <a href="#">Postings</a>
+                    <a href="Postings.aspx">Postings</a>
                 </div>
             
                 <div class="menuItem">
@@ -85,7 +85,7 @@
                 </div>
             
                 <div class="menuItem">
-                    <a href="#">Upload Résumé</a>
+                    <a href="CreatePosting.aspx">Create Posting</a>
                 </div>
             
                 <div class="menuItem">
@@ -105,7 +105,7 @@
                 </div>
                 <hr />
                 <div class="homeMenuOption">
-                    <a href="#">Go to Current Postings</a>
+                    <a href="Postings.aspx">Go to Current Postings</a>
                     <br />
                     <small>Check out all current available posings</small>
                 </div>
@@ -148,7 +148,7 @@
                 </div>
                 <hr />
                 <div class="homeMenuOption">
-                    <a href="#">Upload new Posting</a>
+                    <a href="CreatePosting.aspx">Upload new Posting</a>
                     <br />
                     <small>Change your current résumé</small>
                 </div>
@@ -167,7 +167,7 @@
                 </div>
                 <hr />
                 <div class="homeMenuOption">
-                    <a href="#">Go to Current Postings</a>
+                    <a href="Postings.aspx">Go to Current Postings</a>
                     <br />
                     <small>Check out all current available posings</small>
                 </div>
@@ -179,7 +179,7 @@
                 </div>
                 <hr />
                 <div class="homeMenuOption">
-                    <a href="#">View Unvetted Employers</a>
+                    <a href="UnvettedEmployers.aspx">View Unvetted Employers</a>
                     <br />
                     <small>Change your current résumé</small>
                 </div>
