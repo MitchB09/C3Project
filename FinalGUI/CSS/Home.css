@@ -89,3 +89,25 @@
 #InstructorControls{
     margin-top: 20px;
 }
+
+.CreateAccount{
+    height: 87%;    
+    width: 645px;
+    padding: 10px; 
+    margin-left: 130px;  
+}
+
+#companyInfo{
+    float:left;
+}
+
+#personalInfo{
+    float:right;
+}
+
+#CreateButton{
+    clear:both;
+    width:20%;
+    margin:auto;
+    padding-top: 20px;
+}

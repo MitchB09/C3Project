@@ -278,5 +278,84 @@ namespace FinalBL
 
             return updated;
         }
+
+        public static int SelfCreateEmployer(string eMail, string password, 
+            string firstName, string lastName, string companyName, string companyPosition,
+            string phoneNumber, string companyAddress, string companyCity, string companyProvince)
+        {
+            int createdAccount = 0;
+
+            SqlConnection connection = FinalProjDB.getConnection();
+            SqlTransaction transaction;
+
+            transaction = connection.BeginTransaction();
+
+            SqlCommand insertAccount = new SqlCommand();
+            SqlCommand insertEmployer = new SqlCommand();
+
+            //Setup InsertAccount
+            insertAccount.Connection = connection;
+            insertAccount.CommandText = "spInsertAccount";
+            insertAccount.CommandType = CommandType.StoredProcedure;
+
+            insertAccount.Parameters.AddWithValue("@eMail", eMail);
+            insertAccount.Parameters.AddWithValue("@password", eMail);
+            insertAccount.Parameters.AddWithValue("@accountType", "Employer");
+
+            insertAccount.Parameters["@eMail"].Direction = ParameterDirection.Input;
+            insertAccount.Parameters["@eMail"].Direction = ParameterDirection.Input;
+            insertAccount.Parameters["@eMail"].Direction = ParameterDirection.Input;
+
+            //Setup Insert Employer
+            insertEmployer.Connection = connection;
+            insertEmployer.CommandText = "spInsertEmployer";
+            insertEmployer.CommandType = CommandType.StoredProcedure;
+
+            insertEmployer.Parameters.AddWithValue("@eMail", eMail);
+            insertEmployer.Parameters.AddWithValue("@firstName", firstName);
+            insertEmployer.Parameters.AddWithValue("@lastName", lastName);
+            insertEmployer.Parameters.AddWithValue("@companyName", companyName);
+            insertEmployer.Parameters.AddWithValue("@companyPosition", companyPosition);
+            insertEmployer.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+            insertEmployer.Parameters.AddWithValue("@companyAddress", companyAddress);
+            insertEmployer.Parameters.AddWithValue("@companyCity", companyCity);
+            insertEmployer.Parameters.AddWithValue("@companyProvince", companyProvince);
+            insertEmployer.Parameters.AddWithValue("@approvedEmployer", 0);
+
+            insertEmployer.Parameters["@eMail"].Direction = ParameterDirection.Input;
+            insertEmployer.Parameters["@firstName"].Direction = ParameterDirection.Input;
+            insertEmployer.Parameters["@lastName"].Direction = ParameterDirection.Input;
+            insertEmployer.Parameters["@companyName"].Direction = ParameterDirection.Input;
+            insertEmployer.Parameters["@companyPosition"].Direction = ParameterDirection.Input;
+            insertEmployer.Parameters["@phoneNumber"].Direction = ParameterDirection.Input;
+            insertEmployer.Parameters["@companyAddress"].Direction = ParameterDirection.Input;
+            insertEmployer.Parameters["@companyCity"].Direction = ParameterDirection.Input;
+            insertEmployer.Parameters["@companyProvince"].Direction = ParameterDirection.Input;
+            insertEmployer.Parameters["@approvedEmployer"].Direction = ParameterDirection.Input;
+
+            //
+            insertAccount.Transaction = transaction;
+            insertEmployer.Transaction = transaction;
+
+            try
+            {
+                createdAccount = insertAccount.ExecuteNonQuery();
+                createdAccount += insertEmployer.ExecuteNonQuery();
+                transaction.Commit();
+            }
+
+            catch(Exception ex)
+            {
+                transaction.Rollback();
+                throw ex;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+            
+            return createdAccount;
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using System.Data.SqlClient;
 using FinalDL;
 
@@ -106,6 +107,48 @@ namespace FinalBL
 
             return logInSuccess;
 
+        }
+
+        public static int CreateAccount(string eMail, string password, string accountType)
+        {
+            int created = 0;
+
+            SqlConnection connection = FinalProjDB.getConnection();
+
+            SqlCommand insertCommand = new SqlCommand();
+
+            insertCommand.Connection = connection;
+            insertCommand.CommandText = "spInsertAccount";
+            insertCommand.CommandType = CommandType.StoredProcedure;
+
+            insertCommand.Parameters.AddWithValue("@eMail", eMail);
+            insertCommand.Parameters["@eMail"].Direction = ParameterDirection.Input;
+
+            insertCommand.Parameters.AddWithValue("@password", password);
+            insertCommand.Parameters["@password"].Direction = ParameterDirection.Input;
+
+            insertCommand.Parameters.AddWithValue("@accountType", accountType);
+            insertCommand.Parameters["@accountType"].Direction = ParameterDirection.Input;
+
+            try
+            {
+                connection.Open();
+
+                created = insertCommand.ExecuteNonQuery();
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return created;
         }
     }
 
