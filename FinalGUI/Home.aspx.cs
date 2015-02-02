@@ -68,7 +68,7 @@ public partial class HomeStudent : System.Web.UI.Page
         EmployerMenu.Visible = true;
         EmployerContent.Visible = true;
 
-        EmpAccount.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">My Account</a>";
+        //EmpAccount.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">My Account</a>";
         EmpAccount2.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">Go to My Account</a><br />" +
                 "<small>View and make schanges to your account.</small>";
 

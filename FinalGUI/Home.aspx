@@ -47,7 +47,7 @@
                     <a href="Home.aspx">Home</a>
                </div>
                <div class="menuItem" id="EmpAccount" runat="server">
-                    <a href="#">My Account</a>
+                    <a href="MyPostings.aspx">My Postings</a>
                </div> 
                <div class="menuItem">
                    <a href="CreatePosting.aspx">Create Posting</a>
@@ -142,7 +142,7 @@
                 </div>
                 <hr />
                 <div class="homeMenuOption">
-                    <a href="#">View List of Potential Employers</a>
+                    <a href="#">View My Postings</a>
                     <br />
                     <small>Check the list of potential employers in the province</small>
                 </div>
