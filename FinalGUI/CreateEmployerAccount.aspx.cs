@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
 using FinalBL;
 
 public partial class CreateEmployerAccount : System.Web.UI.Page
@@ -14,7 +15,7 @@ public partial class CreateEmployerAccount : System.Web.UI.Page
     }
     protected void CreateAccount(object sender, EventArgs e)
     {
-        string eMail = txtEMail.Text;
+        string email = txtEmail.Text;
         string password = txtPassword.Text.GetHashCode().ToString();
         string firstName = txtFirstName.Text;
         string lastName = txtLastName.Text;
@@ -25,9 +26,29 @@ public partial class CreateEmployerAccount : System.Web.UI.Page
         string companyCity = txtCompanyCity.Text;
         string companyProvince = lbProvince.SelectedValue;
 
-        int created = EmployerDB.SelfCreateEmployer(eMail, password, firstName, lastName, companyName, companyPostition, phoneNumber, companyAddress, companyCity, companyProvince);
+        try
+        {
+            if (!AccountDB.FindAccountByEmail(email))
+            {
+                if (EmployerDB.SelfCreateEmployer(email, password, firstName, lastName, companyName, companyPostition, phoneNumber, companyAddress, companyCity, companyProvince) == 2)
+                {
+                    string script = "<script type=\"text/javascript\">alert('Account Successfully Created.');window.location = \"UnvettedEmployers.aspx\";</script>";
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+                }
+            }
+            else
+            {
+                string script = "<script type=\"text/javascript\">alert('There is already an account with this email.');window.location = \"UnvettedEmployers.aspx\";</script>";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+            }
+            
+        }
+        catch (Exception ex)
+        {
+            string script = "<script type=\"text/javascript\">alert('Error: " + ex.HResult.ToString() + " Has Occurred.');</script>";
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);                       
+        }
 
-        string script = "<script type=\"text/javascript\">alert('" + created + "');</script>";
-        ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);   
+         
     }
 }

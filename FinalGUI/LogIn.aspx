@@ -13,7 +13,7 @@
               runat="server"
               >
             <img src="images/NBCCLogoSmall.png" alt="Alternate Text"/>
-            <label for="txtUsername">Username:</label>
+            <label for="txtUsername">email:</label>
             <br />
             <asp:Textbox ID='username' maxlength="50" runat="server"  />
             <br />
@@ -25,9 +25,9 @@
             <asp:Button runat="server" OnClick="LogIn"/>
             <br />
             <div id="LoginOptions">
-                <a href="#">Forgot Password</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="ForgotPassword.aspx">Forgot Password</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="CreateEmployerAccount.aspx">Create Account</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#">More Information</a>
+                <a href="Information.aspx">More Information</a>
             </div>
             
         </form>

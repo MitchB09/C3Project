@@ -8,63 +8,62 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FinalBL;
+using FinalGUI.ShowMenu;
+using FinalGUI.StringEncrypt;
 
 public partial class MyAccount : System.Web.UI.Page
 {
-    string eMail = "";
+    string email = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        UpdateContent.Visible = false;
 
         //Checks if the is an email stored in the session
-        if (Session["eMail"] != null)
+        if (Session["email"] != null)
         {
-            eMail = Session["eMail"].ToString();
+            email = Session["email"].ToString();
         }
         else
         {
-            eMail = String.Empty;
+            email = String.Empty;
         }
 
-        if (Session["usertype"] == null || Request.QueryString["eMail"] != eMail)
+        if (Session["usertype"] == null || StringEncryption.Decrypt(Request.QueryString["email"]) != email)
         {
             HttpContext.Current.Response.Redirect("LogIn.aspx");
         }
         else if (Session["usertype"].ToString() == "Student")
         {
-            ShowStudent();
+            ShowStudent(email);
         }
         else if (Session["usertype"].ToString() == "Employer")
         {
-            ShowEmployer();
+            ShowEmployer(email);
         }
         else if (Session["usertype"].ToString() == "Instructor")
         {
-            ShowInstructor();
+            ShowInstructor(email);
         }
 
     }
 
-    public void ShowStudent()
+    public void ShowStudent(string email)
     {
         Student student = new Student();
-        student = StudentDB.StudentByEMail(eMail);
+        student = StudentDB.StudentByEMail(email);
 
         string content = "<h1>" + student.getFullName() + "</h1><br />" +
-            "<span class=\"detailHeading\">eMail: </span><br /><span class=\"details\">" + student.getEMail() + "</span><br />" +
+            "<span class=\"detailHeading\">email: </span><br /><span class=\"details\">" + student.getEMail() + "</span><br />" +
             "<span class=\"detailHeading\">Program: </span><br /><span class=\"details\">" + student.getProgram() + "</span><br />" +
             "<span class=\"detailHeading\">Phone: </span><br /><span class=\"details\">" + student.getPhoneNumber() + "</span><br />" +
             "<span class=\"detailHeading\">Address: </span><br /><span class=\"details\">" + student.getAddress() + ", " + student.getCity() + "</span><br />" +
             "<span class=\"detailHeading\">Campus: </span><br /><span class=\"details\">" + student.getCampus() + "<br />" +
-            "<span class=\"detailHeading\">Aditional Info: </span><br /><span class=\"details\">" + student.getAdditionalInfo() + "</span>";
+            "<span class=\"detailHeading\">Aditional Info: </span><br /><span class=\"details\">" + Server.HtmlEncode(student.getAdditionalInfo()) + "</span>";
 
-        StudentMenu.Visible = true;
+        StudentMenu.InnerHtml = ShowMenu.ShowStudent(email);
         Resume.Visible = true;
-        StudentContent.InnerHtml = content;
-
-        StuAccount1.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">My Account</a>";
-        StuAccount2.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">Upload Résumé</a>";
+        StudentContent.InnerHtml = content;        
 
         EmployerMenu.Visible = false;
         EmployerContent.Visible = false;
@@ -73,20 +72,40 @@ public partial class MyAccount : System.Web.UI.Page
         InstructorContent.Visible = false;
     }
 
-    public void ShowEmployer()
+    public void ShowStudentUpdate(string email) 
+    {
+        StudentContent.Visible = false;
+        UpdateContent.Visible = true;
+        Resume.Visible = false;
+
+        Student student = new Student();
+        student = StudentDB.StudentByEMail(email);
+
+        txtName.InnerText = student.getFullName();
+        txtEmail.Text = student.getEMail();
+        txtProgram.Text = student.getProgram();
+        txtPhone.Text = student.getPhoneNumber();
+        txtAddress.Text = student.getAddress();
+        txtCity.Text = student.getCity();
+        txtCampus.Text = student.getCampus();
+        txtAdditionalInfo.Text = student.getAdditionalInfo();
+        
+    }
+
+    public void ShowEmployer(string email)
     {
         StudentMenu.Visible = false;
         StudentContent.Visible = false;
         Resume.Visible = false;
 
-        EmployerMenu.Visible = true;
+        EmployerMenu.InnerHtml = ShowMenu.ShowEmployer(email);
         EmployerContent.Visible = true;
 
         InstructorMenu.Visible = false;
         InstructorContent.Visible = false;
     }
 
-    public void ShowInstructor()
+    public void ShowInstructor(string email)
     {
         StudentMenu.Visible = false;
         StudentContent.Visible = false;
@@ -95,7 +114,7 @@ public partial class MyAccount : System.Web.UI.Page
         EmployerMenu.Visible = false;
         EmployerContent.Visible = false;
 
-        InstructorMenu.Visible = true;
+        InstructorMenu.InnerHtml = ShowMenu.ShowInstructor(email);
         InstructorContent.Visible = true;
     }
 
@@ -105,7 +124,7 @@ public partial class MyAccount : System.Web.UI.Page
         {
             try
             {
-                string eMail = Session["eMail"].ToString();
+                string email = Session["email"].ToString();
 
                 string fileName = Path.GetFileName(ResumeUpload.PostedFile.FileName);
                 string fileExtention = Path.GetExtension(ResumeUpload.PostedFile.FileName);
@@ -114,27 +133,35 @@ public partial class MyAccount : System.Web.UI.Page
 
                 byte[] documentBinary = new byte[fileSize];
                 ResumeUpload.PostedFile.InputStream.Read(documentBinary, 0, fileSize);
-                                
 
-                if (ResumeDB.FindResume(eMail))
+                if (fileExtention == ".docx" || fileExtention == ".doc" || fileExtention == ".pdf")
                 {
-                    //If a resumé is found update the current one                    
-                    if (ResumeDB.UpdateResume(eMail, fileName, fileExtention, System.DateTime.Now, documentBinary, fileSize) > 0)
+                    if (ResumeDB.FindResume(email))
                     {
-                        string script = "<script type=\"text/javascript\">alert('Resume Sucessfully Uploaded.');</script>";
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
-                        
+                        //If a resumé is found update the current one                    
+                        if (ResumeDB.UpdateResume(email, fileName, fileExtention, System.DateTime.Now, documentBinary, fileSize) > 0)
+                        {
+                            string script = "<script type=\"text/javascript\">alert('Resume Sucessfully Uploaded.');</script>";
+                            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+
+                        }
+                    }
+                    else
+                    {
+                        //If a resumé is not found a new row is created
+                        if (ResumeDB.UploadResume(email, fileName, fileExtention, System.DateTime.Now, documentBinary, fileSize) > 0)
+                        {
+                            string script = "<script type=\"text/javascript\">alert('Resume Sucessfully Uploaded.');</script>";
+                            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+                        }
                     }
                 }
                 else
                 {
-                    //If a resumé is not found a new row is created
-                    if (ResumeDB.UploadResume(eMail, fileName, fileExtention, System.DateTime.Now, documentBinary, fileSize) > 0)
-                    {
-                        string script = "<script type=\"text/javascript\">alert('Resume Sucessfully Uploaded.');</script>";
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
-                    }
+                    string script = "<script type=\"text/javascript\">alert('Résumé must be a \".pdf\", \".docx\", or a \".doc\" type file');</script>";
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
                 }
+                
                 
 
                 
@@ -146,5 +173,32 @@ public partial class MyAccount : System.Web.UI.Page
             }
 
         }
+    }
+    protected void Unnamed_Click(object sender, EventArgs e)
+    {        
+        ShowStudentUpdate(email);
+    }
+
+    protected void UpdateStudent(object sender, EventArgs e)
+    {
+        string phoneNumber = txtPhone.Text.ToString();
+        string address = txtAddress.Text.ToString();
+        string city = txtCity.Text.ToString();
+        string additionalInfo = txtAdditionalInfo.Text.ToString();
+
+        try
+        {
+            if (StudentDB.SelfUpdateStudent(email, phoneNumber, address, city, additionalInfo) > 0)
+            {
+                string script = "<script type=\"text/javascript\">alert('Account Successfully Updated.');window.location=\"MyAccount.aspx?email=" + StringEncryption.Encrpt(email) + "\";</script>";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+            }
+        }
+        catch (Exception ex)
+        {
+            string script = "<script type=\"text/javascript\">alert('An error has occured." + ex.Message + "');</script>";
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+        }
+        
     }
 }

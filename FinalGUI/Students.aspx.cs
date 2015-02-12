@@ -5,21 +5,30 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+
 using FinalBL;
+using FinalGUI.ShowMenu;
+using FinalGUI.StringEncrypt;
 
 public partial class Students : System.Web.UI.Page
 {
-    string eMail = "";
+    string email = "";
+    int page = 1;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["eMail"] != null)
+        if (Session["email"] != null)
         {
-            eMail = Session["eMail"].ToString();
+            email = Session["email"].ToString();
         }
         else
         {
             HttpContext.Current.Response.Redirect("LogIn.aspx");
+        }
+
+        if (Request.QueryString["page"] != null)
+        {
+            page = Convert.ToInt32(Request.QueryString["page"]);
         }
 
         //Redirects if no usertype is present (i.e. no one is signed in)
@@ -29,37 +38,33 @@ public partial class Students : System.Web.UI.Page
         }
         else if (Session["usertype"].ToString() == "Student")
         {
-            ShowStudent();
+            ShowStudent(email);
         }
         else if (Session["usertype"].ToString() == "Employer")
         {
-            if (EmployerDB.ApprovedEmployer(eMail))
+            if (EmployerDB.ApprovedEmployer(email))
             {
-                ShowEmployer();
-                ShowContent();
+                ShowEmployer(email);
+                ShowContent(page);
             }
             else
             {
                 UnvettedContent();
-                ShowEmployer();
+                ShowEmployer(email);
             }
         }
         else if (Session["usertype"].ToString() == "Instructor")
         {
-            ShowInstructor();
-            ShowContent();
+            ShowInstructor(email);
+            ShowContent(page);
         }
             
 
     }
 
-    public void ShowStudent()
+    public void ShowStudent(string email)
     {
-        StudentMenu.Visible = true;
-        //StudentContent.Visible = true;
-
-        StuAccount1.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">My Account</a>";
-        StuAccount2.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">Upload Résumé</a>";
+        StudentMenu.InnerHtml = ShowMenu.ShowStudent(email);
 
         EmployerMenu.Visible = false;
         //EmployerContent.Visible = false;
@@ -68,31 +73,53 @@ public partial class Students : System.Web.UI.Page
         // InstructorContent.Visible = false;
     }
 
-    public void ShowEmployer()
+    public void ShowEmployer(string email)
     {
         StudentMenu.Visible = false;
         //StudentContent.Visible = false;
 
-        EmployerMenu.Visible = true;
+        EmployerMenu.InnerHtml = ShowMenu.ShowEmployer(email);
         //EmployerContent.Visible = true;
 
         InstructorMenu.Visible = false;
         //InstructorContent.Visible = false;
     }
-    public void ShowContent()
+    public void ShowContent(int pageNum)
     {
         List<Student> studentList = new List<Student>();
 
         try
         {
-            studentList = StudentDB.getStudentDisplayList();
+            studentList = StudentDB.getStudentRange(pageNum);
 
             string content = "";
 
             foreach (Student student in studentList)
             {
-                content += "<div class=\"student\"><a href=\"StudentDetails.aspx?eMail=" + student.getEMail() + "\">" + student.getFirstName() + " " + student.getLastName() + "</a><br />" + student.getProgram() + "<br />" + student.getCampus() + "</div><hr />";
+                content += "<div class=\"student\"><a href=\"StudentDetails.aspx?email=" + StringEncryption.Encrpt(student.getEMail()) + "\">" + student.getFirstName() + " " + student.getLastName() + "</a><br />" + student.getProgram() + "<br />" + student.getCampus() + "</div><hr />";
             }
+
+            //Start div for pageListing
+            content += "<div id=\"pageListing\">";
+
+            //If the page number is greater then 1 add a left arrow.
+            if (pageNum > 1)
+            {
+                content += "<a href=\"Students.aspx?page=" + (pageNum - 1) + "\"><img src=\"images/LeftArrow.png\" height=\"12px\" width=\"12px\"/></a>";
+            }
+
+            //add current page number of total page number
+            content += "&nbsp;Page " + pageNum + " of " + (int)Math.Ceiling((double)StudentDB.StudentCount() / 5) + "&nbsp;";
+
+            //If current page is less than total count page add a right arrow.
+            if (pageNum < (int)Math.Ceiling((double)StudentDB.StudentCount() / 5))
+            {
+                content += "<a href=\"Students.aspx?page=" + (pageNum + 1) + "\"><img src=\"images/RightArrow.png\" height=\"12px\" width=\"12px\"/></a>";
+            }
+
+            //end div for pageListing
+            content += "</div>";
+
             StudentContent.InnerHtml = content;
         }
         catch (Exception ex)
@@ -125,7 +152,7 @@ public partial class Students : System.Web.UI.Page
         }
     }
 
-    public void ShowInstructor()
+    public void ShowInstructor(string email)
     {
         StudentMenu.Visible = false;
         //StudentContent.Visible = false;
@@ -133,7 +160,7 @@ public partial class Students : System.Web.UI.Page
         EmployerMenu.Visible = false;
         //EmployerContent.Visible = false;
 
-        InstructorMenu.Visible = true;
+        InstructorMenu.InnerHtml = ShowMenu.ShowInstructor(email);
         //InstructorContent.Visible = true;
     }
 }

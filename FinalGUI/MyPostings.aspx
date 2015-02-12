@@ -21,58 +21,10 @@
               >
                       
             <div id="EmployerMenu" class="menu" runat="server">
-               <div  class="menuItem">
-                    <a href="Home.aspx">Home</a>
-               </div>
-               <div class="menuItem" id="EmpAccount" runat="server">
-                    <a href="#">My Account</a>
-               </div> 
-               <div class="menuItem">
-                    <a href="CreatePosting.aspx">Create Posting</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="Students.aspx">Students</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="#">View Applications</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="#">Information</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="LogOut.aspx">Log Out</a>
-                </div>
+               
             </div>
             <div id="InstructorMenu" class="menu" runat="server">
-               <div  class="menuItem">
-                    <a href="Home.aspx">Home</a>
-               </div>
-               <div class="menuItem" id="InsAccount" runat="server">
-                    <a href="#">My Account</a>
-               </div> 
-               <div class="menuItem">
-                    <a href="Postings.aspx">Postings</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="#">Employers</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="#">Upload Résumé</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="#">Information</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="LogOut.aspx">Log Out</a>
-                </div>
+               
             </div>
 
             

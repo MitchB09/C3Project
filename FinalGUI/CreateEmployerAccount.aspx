@@ -75,10 +75,10 @@
 
                     <div id="personalInfo">
                         <h2>Personal Info</h2>
-                        <asp:Label Text="eMail: " CssClass="detailHeading" runat="server" /><br />
-                        <asp:TextBox ID="txtEMail" CssClass="details" runat="server" />
-                        <asp:RequiredFieldValidator ControlToValidate="txtEMail" Text="*" ErrorMessage="eMail is Required" Display="Dynamic" runat="server"/>
-                        <asp:RegularExpressionValidator ValidationExpression="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" ControlToValidate="txtEMail" Text="*" ErrorMessage="eMail is Not Valid" Display="Dynamic" runat="server"/>
+                        <asp:Label Text="email: " CssClass="detailHeading" runat="server" /><br />
+                        <asp:TextBox ID="txtEmail" CssClass="details" runat="server" />
+                        <asp:RequiredFieldValidator ControlToValidate="txtEMail" Text="*" ErrorMessage="email is Required" Display="Dynamic" runat="server"/>
+                        <asp:RegularExpressionValidator ValidationExpression="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" ControlToValidate="txtEMail" Text="*" ErrorMessage="email is Not Valid" Display="Dynamic" runat="server"/>
 
                         <br />
 

@@ -4,18 +4,20 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using FinalGUI.ShowMenu;
+using FinalGUI.StringEncrypt;
 
 public partial class HomeStudent : System.Web.UI.Page
 {
-    string eMail = "";
+    string email = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
                 
         //Checks if the is an email stored in the session if not returns to LogIn.aspx
-        if (Session["eMail"] != null)
+        if (Session["email"] != null)
         {
-            eMail = Session["eMail"].ToString();
+            email = Session["email"].ToString();
         }
         else{
             HttpContext.Current.Response.Redirect("LogIn.aspx");
@@ -28,55 +30,56 @@ public partial class HomeStudent : System.Web.UI.Page
         }
         else if (Session["usertype"].ToString() == "Student")
         {
-            ShowStudent();            
+            ShowStudent(email);            
         }
         else if (Session["usertype"].ToString() == "Employer")
         {
-            ShowEmployer();
+            ShowEmployer(email);
         }
         else if (Session["usertype"].ToString() == "Instructor")
         {
-            ShowInstructor();            
+            ShowInstructor(email);            
+        }
+        else if (Session["usertype"].ToString() == "Admin")
+        {
+            ShowAdmin(email);
         }
                 
     }
     
-    public void ShowStudent()
+    public void ShowStudent(string email)
     {
-        StudentMenu.Visible = true;
+        StudentMenu.InnerHtml = ShowMenu.ShowStudent(email);
+        StuAccount2.InnerHtml = "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrpt(email) + "\">Go to My Account</a><br /><small>View and make schanges to your account.</small>";
+        StuAccount4.InnerHtml = "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrpt(email) + "\">Upload new Résumé</a><br /><small>Change your current résumé</small>";
         StudentContent.Visible = true;
-
-        StuAccount.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">My Account</a>";
-        StuAccount2.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">Go to My Account</a><br />" +
-                "<small>View and make schanges to your account.</small>";
-        StuAccount3.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">Upload Résumé</a>";
-        StuAccount4.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">Upload new Résumé;</a><br />" +
-                "<small>Change your current résumé</small>";
-
+        
         EmployerMenu.Visible = false;
         EmployerContent.Visible = false;
         
         InstructorMenu.Visible = false;     
         InstructorContent.Visible = false;
+
+        AdminMenu.Visible = false;
+        AdminContent.Visible = false;
     }
 
-    public void ShowEmployer()
+    public void ShowEmployer(string email)
     {
         StudentMenu.Visible = false;
         StudentContent.Visible = false;
 
-        EmployerMenu.Visible = true;
-        EmployerContent.Visible = true;
-
-        //EmpAccount.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">My Account</a>";
-        EmpAccount2.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">Go to My Account</a><br />" +
-                "<small>View and make schanges to your account.</small>";
+        EmployerMenu.InnerHtml = ShowMenu.ShowEmployer(email);
+        EmployerContent.Visible = true;        
 
         InstructorMenu.Visible = false;
         InstructorContent.Visible = false;
+
+        AdminMenu.Visible = false;
+        AdminContent.Visible = false;
     }
 
-    public void ShowInstructor()
+    public void ShowInstructor(string email)
     {
         StudentMenu.Visible = false;
         StudentContent.Visible = false;
@@ -84,11 +87,25 @@ public partial class HomeStudent : System.Web.UI.Page
         EmployerMenu.Visible = false;
         EmployerContent.Visible = false;
 
-        InstructorMenu.Visible = true;
+        InstructorMenu.InnerHtml = ShowMenu.ShowInstructor(email);
         InstructorContent.Visible = true;
 
-        InsAccount.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">My Account</a>";
-        InsAccount2.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">Go to My Account</a><br />" +
-                "<small>View and make schanges to your account.</small>";
+        AdminMenu.Visible = false;
+        AdminContent.Visible = false;
+    }
+
+    public void ShowAdmin(string email)
+    {
+        StudentMenu.Visible = false;
+        StudentContent.Visible = false;
+
+        EmployerMenu.Visible = false;
+        EmployerContent.Visible = false;
+
+        InstructorMenu.Visible = false;
+        InstructorContent.Visible = false;
+
+        AdminMenu.InnerHtml = ShowMenu.ShowAdmin(email);
+        AdminContent.Visible = true;
     }
 }

@@ -6,17 +6,19 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using FinalBL;
 
+using FinalGUI.ShowMenu;
+
 public partial class CreatePosting : System.Web.UI.Page
 {
-    string eMail;
+    string email;
     
     protected void Page_Load(object sender, EventArgs e)
     {
-        eMail = "";
+        email = "";
 
-        if (Session["eMail"] != null)
+        if (Session["email"] != null)
         {
-            eMail = Session["eMail"].ToString();
+            email = Session["email"].ToString();
         }
         else
         {
@@ -30,49 +32,49 @@ public partial class CreatePosting : System.Web.UI.Page
         }
         else if (Session["usertype"].ToString() == "Student")
         {
-            ShowStudent();
+            ShowStudent(email);
         }
         else if (Session["usertype"].ToString() == "Employer")
         {
-            if (EmployerDB.ApprovedEmployer(eMail))
+            if (EmployerDB.ApprovedEmployer(email))
             {
-                ShowEmployer(eMail); 
+                ShowEmployer(email); 
             }
             else
             {
-                UnvettedEmployer();
+                UnvettedEmployer(email);
             }
                         
         }
         else if (Session["usertype"].ToString() == "Instructor")
         {
-            ShowInstructor();            
+            ShowInstructor(email);            
         }         
 
 
     }
-    public void ShowStudent()
+    public void ShowStudent(string email)
     {
-        
-        StudentMenu.Visible = true;
+
+        StudentMenu.InnerHtml = ShowMenu.ShowStudent(email);
         //StudentContent.Visible = true;
 
-        StuAccount1.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">My Account</a>";
-        StuAccount2.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">Upload Résumé</a>";
+        //StuAccount1.InnerHtml = "<a href=\"MyAccount.aspx?email=" + email + "\">My Account</a>";
+        //StuAccount2.InnerHtml = "<a href=\"MyAccount.aspx?email=" + email + "\">Upload Résumé</a>";
 
         InstructorMenu.Visible = false;
         EmployerMenu.Visible = false;
         Content.Visible = false;        
     }
 
-    public void ShowEmployer(string eMail)
+    public void ShowEmployer(string email)
     {
-        StudentMenu.Visible = false;        
+        StudentMenu.Visible = false;
 
-        EmployerMenu.Visible = true;
+        EmployerMenu.InnerHtml = ShowMenu.ShowEmployer(email);
         Content.Visible = true;
 
-        Employer employer = EmployerDB.EmployerByEMail(eMail);
+        Employer employer = EmployerDB.EmployerByEMail(email);
         
         CompanyName.Text = employer.getCompanyName();
         CompanyName.ReadOnly = true;
@@ -93,19 +95,21 @@ public partial class CreatePosting : System.Web.UI.Page
         
     }
 
-    public void UnvettedEmployer()
+    public void UnvettedEmployer(string email)
     {
         StudentMenu.Visible = false;
         InstructorMenu.Visible = false;
+        EmployerMenu.InnerHtml = ShowMenu.ShowEmployer(email);
+
         Content.InnerHtml = "<p>You must be an approved employer to create a job posting</p>";
     }
 
-    public void ShowInstructor()
+    public void ShowInstructor(string email)
     {
         StudentMenu.Visible = false;  
         EmployerMenu.Visible = false;
-        
-        InstructorMenu.Visible = true;
+
+        InstructorMenu.InnerHtml = ShowMenu.ShowInstructor(email);
         Content.Visible = true;
 
 

@@ -31,13 +31,13 @@ public partial class _Default : System.Web.UI.Page
             if (result != null)
             {
                 //Account userInfo = new Account(result.getEMail(), null, result.getAccountType());
-                Session["eMail"] = result.getEMail();
+                Session["email"] = result.getEMail();
                 Session["usertype"] = result.getAccountType();
                 HttpContext.Current.Response.Redirect("Home.aspx");
             }
             else
             {
-                string script = "<script type=\"text/javascript\">alert('eMail or password is incorrect " + hashPass.ToString() + "');</script>";
+                string script = "<script type=\"text/javascript\">alert('email or password is incorrect.');</script>";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
 
             }

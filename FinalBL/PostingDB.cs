@@ -72,6 +72,7 @@ namespace FinalBL
                     posting.setEmpEmail(reader.GetString(2));
                     posting.setDateAdded(reader.GetDateTime(3));
                     posting.setAdditionalInfo(reader.GetString(4));
+                    posting.setCompanyName(reader.GetString(5));
                     PostingList.Add(posting);
                 }
 

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace FinalBL
 {
-    public class Posting
+    public class Posting : Employer
     {
         private int postID;
         private string empEmail;
@@ -15,7 +16,10 @@ namespace FinalBL
         private string additionalInfo;
         
         //Constructor
-        public Posting(int postID, string empEmail, DateTime dateAdded, string additionalInfo)
+        public Posting(int postID, string empEmail, DateTime dateAdded, string additionalInfo, string eMail, string password, string firstName, string lastName, string companyName, string companyPosition, 
+            string phoneNumber, string companyAddress, string companyCity, string companyProvince, bool approvedEmployer)
+            :base(eMail, password, firstName, lastName, companyName, companyPosition, 
+            phoneNumber, companyAddress, companyCity, companyProvince, approvedEmployer)
         {
             setPostID(postID);
             setEmpEmail(empEmail);

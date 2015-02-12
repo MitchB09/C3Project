@@ -20,81 +20,16 @@
               runat="server"
               >
             <div id="StudentMenu" class="menu" runat="server">
-                <div  class="menuItem">
-                    <a href="Home.aspx">Home</a>
-                </div>                 
-                <div class="menuItem" id="StuAccount" runat="server">
-                    <a href="MyAccount.aspx?eMail=">My Account</a>
-                </div>                    
-                <div  class="menuItem">
-                    <a href="Postings.aspx">Postings</a>
-                </div>            
-                <div class="menuItem">
-                    <a href="#">Employers</a>
-                </div>            
-                <div class="menuItem" id="StuAccount3" runat="server">
-                    <a href="MyAccount.aspx?eMail=">Upload Résumé</a>
-                </div>            
-                <div class="menuItem">
-                    <a href="#">Information</a>
-                </div>            
-                <div class="menuItem">
-                    <a href="LogOut.aspx">Log Out</a>
-                </div>
+                
             </div>           
             <div id="EmployerMenu" class="menu" runat="server">
-               <div  class="menuItem">
-                    <a href="Home.aspx">Home</a>
-               </div>
-               <div class="menuItem" id="EmpAccount" runat="server">
-                    <a href="MyPostings.aspx">My Postings</a>
-               </div> 
-               <div class="menuItem">
-                   <a href="CreatePosting.aspx">Create Posting</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="Students.aspx">Students</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="#">View Applications</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="#">Information</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="LogOut.aspx">Log Out</a>
-                </div>
+               
             </div>
             <div id="InstructorMenu" class="menu" runat="server">
-               <div  class="menuItem">
-                    <a href="Home.aspx">Home</a>
-               </div>
-               <div class="menuItem" id="InsAccount" runat="server">
-                    <a href="#">My Account</a>
-               </div> 
-               <div class="menuItem">
-                    <a href="Postings.aspx">Postings</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="#">Employers</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="CreatePosting.aspx">Create Posting</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="#">Information</a>
-                </div>
-            
-                <div class="menuItem">
-                    <a href="LogOut.aspx">Log Out</a>
-                </div>
+               
+            </div>
+            <div id="AdminMenu" class="menu" runat="server">
+
             </div>
 
             <div id="StudentContent"  class="content" runat="server">
@@ -142,7 +77,7 @@
                 </div>
                 <hr />
                 <div class="homeMenuOption">
-                    <a href="#">View My Postings</a>
+                    <a href="MyPostings.aspx">View My Postings</a>
                     <br />
                     <small>Check the list of potential employers in the province</small>
                 </div>
@@ -154,7 +89,7 @@
                 </div>
                 <hr />
                 <div class="homeMenuOption">
-                    <a href="#">View Practicum Information</a>
+                    <a href="Information.aspx">View Practicum Information</a>
                     <br />
                     <small>View general information about the practicums</small>
                 </div>
@@ -190,6 +125,13 @@
                     <small>View general information about the practicums</small>
                 </div>
             </div> 
+            <div id="AdminContent" runat="server" class="content">
+                <div class="homeMenuOption">
+                    <a href="#">Admin Stuff</a>
+                    <br />
+                    <small>Subinfo for Admin stuff</small>
+                </div>
+            </div>
            
             
         </form>

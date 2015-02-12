@@ -24,7 +24,7 @@ public partial class UploadResume : System.Web.UI.Page
         {
             try
             {
-                string eMail = Session["eMail"].ToString();
+                string email = Session["email"].ToString();
 
                 string fileName = Path.GetFileName(ResumeUpload.PostedFile.FileName);
                 string fileExtention = Path.GetExtension(ResumeUpload.PostedFile.FileName);
@@ -34,7 +34,7 @@ public partial class UploadResume : System.Web.UI.Page
                 byte[] documentBinary = new byte[fileSize];
                 ResumeUpload.PostedFile.InputStream.Read(documentBinary, 0, fileSize);
 
-                int result = ResumeDB.UploadResume(eMail, fileName, fileExtention, System.DateTime.Now, documentBinary, fileSize);
+                int result = ResumeDB.UploadResume(email, fileName, fileExtention, System.DateTime.Now, documentBinary, fileSize);
 
                 string script = "<script type=\"text/javascript\">alert('Error has occurred.\n" + result +"');</script>";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);

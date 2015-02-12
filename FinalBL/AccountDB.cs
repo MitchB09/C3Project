@@ -60,7 +60,7 @@ namespace FinalBL
             return foundAccount;
         }
 
-        public static Boolean LogInAttempt(string eMail, string password)
+        public static bool LogInAttempt(string eMail, string password)
         {
             bool logInSuccess = false;
 
@@ -77,7 +77,7 @@ namespace FinalBL
             {
                 connection.Open();
 
-                SqlDataReader reader = selectCommand.ExecuteReader(System.Data.CommandBehavior.SingleResult);
+                SqlDataReader reader = selectCommand.ExecuteReader(CommandBehavior.SingleResult);
 
                 if (reader.Read())
                 {
@@ -138,7 +138,7 @@ namespace FinalBL
 
             }
 
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 throw ex;
             }
@@ -149,6 +149,82 @@ namespace FinalBL
             }
 
             return created;
+        }
+
+        public static bool FindAccountByEmail(string eMail)
+        {
+            bool found = false;
+
+            SqlConnection connection = FinalProjDB.getConnection();
+
+            SqlCommand selectCommand = new SqlCommand();
+
+            selectCommand.Connection = connection;
+            selectCommand.CommandText = "spFindAccountByEmail";
+            selectCommand.CommandType = CommandType.StoredProcedure;
+
+            selectCommand.Parameters.AddWithValue("@eMail", eMail);
+            selectCommand.Parameters["@eMail"].Direction = ParameterDirection.Input;
+            
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = selectCommand.ExecuteReader(CommandBehavior.SingleResult);
+
+                if (reader.Read())
+                {
+                    if (reader.GetInt32(0) > 0)
+                    {
+                        found = true;
+                    }     
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return found;
+        }
+
+        public static int UpdatePassword(string eMail, string password)
+        {
+            int updatedRecords = 0;
+
+            SqlConnection connection = FinalProjDB.getConnection();
+
+            SqlCommand updateCommand = new SqlCommand();
+
+            updateCommand.Connection = connection;
+            updateCommand.CommandText = "spUpdatePasswordByEmail";
+            updateCommand.CommandType = CommandType.StoredProcedure;
+
+            updateCommand.Parameters.AddWithValue("@eMail", eMail);
+            updateCommand.Parameters["@eMail"].Direction = ParameterDirection.Input;
+
+            updateCommand.Parameters.AddWithValue("@password", password);
+            updateCommand.Parameters["@password"].Direction = ParameterDirection.Input;
+
+            try
+            {
+                connection.Open();
+
+                updatedRecords = updateCommand.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return updatedRecords;
         }
     }
 

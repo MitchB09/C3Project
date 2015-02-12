@@ -7,8 +7,9 @@ using System.Linq;
 using System.Web;
 
 
-namespace FinalGUI.App_Code
+namespace FinalGUI.StringEncrypt
 {
+    //Class used to encode and decode query string only has static methods
     public class StringEncryption
     {
         public StringEncryption()
@@ -42,7 +43,7 @@ namespace FinalGUI.App_Code
             }
             return plainText;
         }
-    
+       
         public static string Decrypt(string cipherText)
         {
             string EncryptionKey = "MBILENSKY009";

@@ -9,23 +9,25 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using FinalBL;
+using FinalGUI.StringEncrypt;
+using FinalGUI.ShowMenu;
 
 public partial class StudentDetails : System.Web.UI.Page
 {
-    string eMail = "";
+    string email = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["eMail"] != null)
+        if (Session["email"] != null)
         {
-            eMail = Session["eMail"].ToString();
+            email = Session["email"].ToString();
         }
         else
         {
             HttpContext.Current.Response.Redirect("LogIn.aspx");
         }
 
-        eMail = Request.QueryString["eMail"];
+        email = StringEncryption.Decrypt(Request.QueryString["email"]);
 
         //Redirects if no usertype is present (i.e. no one is signed in)
         if (Session["usertype"] == null)
@@ -34,17 +36,17 @@ public partial class StudentDetails : System.Web.UI.Page
         }
         else if (Session["usertype"].ToString() == "Student")
         {
-            ShowStudent();
+            ShowStudent(email);
         }
         else if (Session["usertype"].ToString() == "Employer")
         {
-            ShowEmployer();
-            ShowResume(eMail);
+            ShowEmployer(email);
+            ShowResume(email);
         }
         else if (Session["usertype"].ToString() == "Instructor")
         {
-            ShowInstructor();
-            ShowResume(eMail);
+            ShowInstructor(email);
+            ShowResume(email);
         }
 
         
@@ -53,17 +55,17 @@ public partial class StudentDetails : System.Web.UI.Page
         
         try
         {
-            Student student = StudentDB.StudentByEMail(eMail);
+            Student student = StudentDB.StudentByEMail(email);
 
 
             string studentName = student.getFirstName() + " " + student.getLastName();
-            string studentID = student.getStudentID();
+            string studentEMail = student.getEMail();
             string studentProgram = student.getProgram();
             string studentInfo = student.getAdditionalInfo();
 
-            Resume foundResume = ResumeDB.GetResumeName(eMail);
+            Resume foundResume = ResumeDB.GetResumeName(email);
 
-            string content = studentName + "<br />" + studentID + "<br />" + studentProgram + "<br />" + studentInfo + " <br / >";
+            string content = studentName + "<br />" + studentEMail + "<br />" + studentProgram + "<br />" + studentInfo + " <br / >";
             StudentStuff.InnerHtml = content;                        
 
             ResumeTitle.InnerHtml = " " + foundResume.getFileName();
@@ -80,14 +82,40 @@ public partial class StudentDetails : System.Web.UI.Page
     {
         try
         {
-            eMail = Request.QueryString["eMail"];
+            email = StringEncryption.Decrypt(Request.QueryString["email"]);
 
-            Resume foundResume = ResumeDB.GetResume(eMail);
+            Resume foundResume = ResumeDB.GetResume(email);
+            
+            if (foundResume.getFileType() == ".pdf")
+            {
+                Response.Clear();
 
-            FileStream fStream = new FileStream("C:\\tester\\" + foundResume.getFileName(), FileMode.Create);
-            fStream.Write(foundResume.getDocData(), 0, foundResume.getDocData().Length);
-            fStream.Close();
-            fStream.Dispose();
+                //intermet media type for a .pdf file
+                Response.ContentType = "application/pdf";
+                Response.BinaryWrite(foundResume.getDocData());
+                Response.End();
+            }
+            else if (foundResume.getFileType() == ".docx")
+            {
+                Response.Clear();
+
+                //intermet media type for a .docx file
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                Response.AddHeader("content-disposition", @"attachment;filename=" + foundResume.getFileName() + "");
+                Response.BinaryWrite(foundResume.getDocData());
+                
+                Response.End();
+            }
+            else if (foundResume.getFileType() == ".doc")
+            {
+                Response.Clear();
+
+                //intermet media type for a .doc file
+                Response.ContentType = "application/msword";
+                Response.BinaryWrite(foundResume.getDocData());
+                Response.End();
+            }
+            
         }
         catch(Exception ex)
         {
@@ -97,15 +125,11 @@ public partial class StudentDetails : System.Web.UI.Page
         
     }
 
-    public void ShowStudent()
+    public void ShowStudent(string email)
     {
         ResumeDiv.Visible = false;
 
-        StudentMenu.Visible = true;
-        //StudentContent.Visible = true;
-
-        StuAccount1.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">My Account</a>";
-        StuAccount2.InnerHtml = "<a href=\"MyAccount.aspx?eMail=" + eMail + "\">Upload Résumé</a>";
+        StudentMenu.InnerHtml = ShowMenu.ShowStudent(email);
 
         EmployerMenu.Visible = false;
         //EmployerContent.Visible = false;
@@ -114,7 +138,7 @@ public partial class StudentDetails : System.Web.UI.Page
        // InstructorContent.Visible = false;
     }
 
-    public void ShowEmployer()
+    public void ShowEmployer(string email)
     {
         StudentMenu.Visible = false;
         //StudentContent.Visible = false;
@@ -122,11 +146,11 @@ public partial class StudentDetails : System.Web.UI.Page
         EmployerMenu.Visible = true;
         //EmployerContent.Visible = true;
 
-        InstructorMenu.Visible = false;
+        InstructorMenu.InnerHtml = ShowMenu.ShowEmployer(email);
         //InstructorContent.Visible = false;
     }
 
-    public void ShowInstructor()
+    public void ShowInstructor(string email)
     {
         StudentMenu.Visible = false;
         //StudentContent.Visible = false;
@@ -134,7 +158,7 @@ public partial class StudentDetails : System.Web.UI.Page
         EmployerMenu.Visible = false;
         //EmployerContent.Visible = false;
 
-        InstructorMenu.Visible = true;
+        InstructorMenu.InnerHtml = ShowMenu.ShowInstructor(email);
         //InstructorContent.Visible = true;
     }
 
