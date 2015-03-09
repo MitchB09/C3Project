@@ -11,19 +11,30 @@ namespace FinalBL
 {
     public class PostingDB
     {
-        public static int CreatePosting(string eMail, string jobTitle, string additionalInfo)
+        public static int CreatePosting(string eMail, string company, string contact, string jobTitle, string additionalInfo)
         {
-            SqlConnection connection = FinalProjDB.getConnection();
+            SqlConnection connection = FinalProjDB.getConnection();            
 
-            string SQL = "INSERT INTO Posting(empEmail, dateAdded, jobTitle, additionalInfo) VALUES (@eMail, @dateAdded, @jobTitle, @additionalInfo)";
+            SqlCommand insertCommand = new SqlCommand();
 
-            SqlCommand insertCommand = new SqlCommand(SQL, connection);
+            insertCommand.Connection = connection;
+            insertCommand.CommandText = "spInsertPosting";
+            insertCommand.CommandType = CommandType.StoredProcedure;
 
-            insertCommand.Parameters.AddWithValue("@eMail", eMail);
+            insertCommand.Parameters.AddWithValue("@empEmail", eMail);
+            insertCommand.Parameters.AddWithValue("@company", company);
+            insertCommand.Parameters.AddWithValue("@contact", contact);
             insertCommand.Parameters.AddWithValue("@dateAdded", System.DateTime.Now);
             insertCommand.Parameters.AddWithValue("@jobTitle", jobTitle);
-            insertCommand.Parameters.AddWithValue("@additionalInfo", additionalInfo);
-            
+            insertCommand.Parameters.AddWithValue("@addInfo", additionalInfo);
+
+            insertCommand.Parameters["@empEmail"].Direction = ParameterDirection.Input;
+            insertCommand.Parameters["@company"].Direction = ParameterDirection.Input;
+            insertCommand.Parameters["@contact"].Direction = ParameterDirection.Input;
+            insertCommand.Parameters["@dateAdded"].Direction = ParameterDirection.Input;
+            insertCommand.Parameters["@jobTitle"].Direction = ParameterDirection.Input;
+            insertCommand.Parameters["@addInfo"].Direction = ParameterDirection.Input;
+                        
             int result = 0;
 
             try
@@ -120,9 +131,11 @@ namespace FinalBL
                 {
                     posting.setPostID(postID);
                     posting.setEmpEmail(reader.GetString(0));
-                    posting.setDateAdded(reader.GetDateTime(1));
-                    posting.setJobTitle(reader.GetString(2));                   
-                    posting.setAdditionalInfo(reader.GetString(3));                    
+                    posting.setCompany(reader.GetString(1));
+                    posting.setContact(reader.GetString(2));
+                    posting.setDateAdded(reader.GetDateTime(3));
+                    posting.setJobTitle(reader.GetString(4));                   
+                    posting.setAdditionalInfo(reader.GetString(5));                    
                 }
 
 
@@ -215,10 +228,12 @@ namespace FinalBL
                 {
                     Posting posting = new Posting();
                     posting.setPostID(reader.GetInt32(0));
-                    posting.setJobTitle(reader.GetString(1));
-                    posting.setEmpEmail(reader.GetString(2));
-                    posting.setDateAdded(reader.GetDateTime(3));
-                    posting.setAdditionalInfo(reader.GetString(4));
+                    posting.setCompany(reader.GetString(1));
+                    posting.setContact(reader.GetString(2));
+                    posting.setJobTitle(reader.GetString(3));
+                    posting.setEmpEmail(reader.GetString(4));
+                    posting.setDateAdded(reader.GetDateTime(5));
+                    posting.setAdditionalInfo(reader.GetString(6));
                     PostingList.Add(posting);
                 }
 
@@ -322,5 +337,99 @@ namespace FinalBL
 
             return updatedRecords;
         }
+    
+        public static int RemovePosting(Posting post, string email, string reason)
+        {
+            int insertedRecords = 0;
+
+            SqlConnection connection = FinalProjDB.getConnection();
+            SqlCommand insertCommand = new SqlCommand();
+
+            insertCommand.Connection = connection;
+            insertCommand.CommandText = "spRemovePosting";
+            insertCommand.CommandType = CommandType.StoredProcedure;
+
+            insertCommand.Parameters.AddWithValue("@postID", post.getPostID());
+            insertCommand.Parameters["@postID"].Direction = ParameterDirection.Input;
+
+            insertCommand.Parameters.AddWithValue("@empEmail", post.getEmpEmail());
+            insertCommand.Parameters["@empEmail"].Direction = ParameterDirection.Input;
+
+            insertCommand.Parameters.AddWithValue("@dateAdded", post.getDateAdded());
+            insertCommand.Parameters["@dateAdded"].Direction = ParameterDirection.Input;
+
+            insertCommand.Parameters.AddWithValue("@jobTitle", post.getJobTitle());
+            insertCommand.Parameters["@jobTitle"].Direction = ParameterDirection.Input;            
+
+            insertCommand.Parameters.AddWithValue("@additionalInfo", post.getAdditionalInfo());
+            insertCommand.Parameters["@additionalInfo"].Direction = ParameterDirection.Input;
+
+            insertCommand.Parameters.AddWithValue("@removedBy", email);
+            insertCommand.Parameters["@dateAdded"].Direction = ParameterDirection.Input;
+
+            insertCommand.Parameters.AddWithValue("@dateRemoved", System.DateTime.Now.Date);
+            insertCommand.Parameters["@dateRemoved"].Direction = ParameterDirection.Input;
+
+            insertCommand.Parameters.AddWithValue("@reason", reason);
+            insertCommand.Parameters["@reason"].Direction = ParameterDirection.Input;
+
+            try
+            {
+                connection.Open();
+                insertedRecords = insertCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return insertedRecords;
+        }
+    
+        public static bool PostingExists(int postID)
+        {
+            bool foundRecord = false;
+
+            SqlConnection connection = FinalProjDB.getConnection();
+            SqlCommand selectCommand = new SqlCommand();
+
+            selectCommand.Connection = connection;
+            selectCommand.CommandText = "spFindPostingById";
+            selectCommand.CommandType = CommandType.StoredProcedure;
+
+            selectCommand.Parameters.AddWithValue("@postID", postID);
+            selectCommand.Parameters["@postID"].Direction = ParameterDirection.Input;
+
+            
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = selectCommand.ExecuteReader(CommandBehavior.SingleResult);
+
+                if (reader.Read())
+                {
+                    if (reader.GetInt32(0) > 0)
+                    {
+                        foundRecord = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return foundRecord;
+        }
     }
+
 }

@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Excel">
+      <HintPath>..\packages\ExcelDataReader.2.1.2.3\lib\net45\Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,7 +51,11 @@
     <Compile Include="EmployerDB.cs" />
     <Compile Include="Posting.cs" />
     <Compile Include="PostingDB.cs" />
+    <Compile Include="Practicum.cs" />
+    <Compile Include="PracticumDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicFile.cs" />
+    <Compile Include="PublicFileDB.cs" />
     <Compile Include="Resume.cs" />
     <Compile Include="ResumeDB.cs" />
     <Compile Include="Instructor.cs" />
@@ -58,6 +68,9 @@
       <Project>{6d6460c9-5b52-4bf0-b6f7-7cb8c11e6987}</Project>
       <Name>FinalDL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

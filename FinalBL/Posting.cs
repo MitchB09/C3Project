@@ -11,17 +11,21 @@ namespace FinalBL
     {
         private int postID;
         private string empEmail;
+        private string company;
+        private string contact;
         private DateTime dateAdded;
         private string jobTitle;
         private string additionalInfo;
         
         //Constructor
-        public Posting(int postID, string empEmail, DateTime dateAdded, string additionalInfo, string eMail, string password, string firstName, string lastName, string companyName, string companyPosition, 
+        public Posting(int postID, string contact, string empEmail, DateTime dateAdded, string additionalInfo, string eMail, string password, string firstName, string lastName, string companyName, string companyPosition, 
             string phoneNumber, string companyAddress, string companyCity, string companyProvince, bool approvedEmployer)
             :base(eMail, password, firstName, lastName, companyName, companyPosition, 
             phoneNumber, companyAddress, companyCity, companyProvince, approvedEmployer)
         {
             setPostID(postID);
+            setCompany(companyName);
+            setContact(contact);
             setEmpEmail(empEmail);
             setDateAdded(dateAdded);
             setAdditionalInfo(additionalInfo);
@@ -39,6 +43,14 @@ namespace FinalBL
         {
             return this.empEmail;
         }
+        public string getCompany()
+        {
+            return this.company;
+        }
+        public string getContact()
+        {
+            return this.contact;
+        }        
         public DateTime getDateAdded()
         {
             return this.dateAdded;
@@ -60,6 +72,14 @@ namespace FinalBL
         public void setEmpEmail(string empEmail)
         {
             this.empEmail = empEmail;
+        }
+        public void setCompany(string company)
+        {
+            this.company = company;
+        }
+        public void setContact(string contact)
+        {
+            this.contact = contact;
         }
         public void setDateAdded(DateTime dateAdded)
         {
