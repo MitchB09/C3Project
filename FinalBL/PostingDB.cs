@@ -430,6 +430,41 @@ namespace FinalBL
 
             return foundRecord;
         }
+    
+        public static bool FillPosting(int postID)
+        {
+            bool updated = false;
+
+            SqlConnection connection = FinalProjDB.getConnection();
+            SqlCommand updateCommand = new SqlCommand();
+
+            updateCommand.Connection = connection;
+            updateCommand.CommandText = "spFillPosting";
+            updateCommand.CommandType = CommandType.StoredProcedure;
+
+            updateCommand.Parameters.AddWithValue("@postID", postID);
+            updateCommand.Parameters["@postId"].Direction = ParameterDirection.Input;            
+
+            try
+            {
+                connection.Open();
+                if (updateCommand.ExecuteNonQuery() > 0)
+                {
+                    updated = true;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return updated;
+        }
     }
 
 }

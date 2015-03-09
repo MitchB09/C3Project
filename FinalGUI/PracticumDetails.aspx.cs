@@ -128,7 +128,8 @@ public partial class PracticumDetails : System.Web.UI.Page
     {
         try
         {
-            PracticumDB.ApprovePracticum(practicumID);
+            Practicum practicum = PracticumDB.GetPracticumByID(practicumID);
+            PracticumDB.ApprovePracticum(practicum);
 
             string script = "<script type=\"text/javascript\">alert('Successfully Approved Practicum.');window.location = \"BrowsePracticums.aspx\"</script>";
             ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);

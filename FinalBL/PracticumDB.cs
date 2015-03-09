@@ -287,7 +287,7 @@ namespace FinalBL
         }
     
 
-        public static bool ApprovePracticum(int practicumID)
+        public static bool ApprovePracticum(Practicum practicum)
         {
             bool success = false;
 
@@ -299,7 +299,7 @@ namespace FinalBL
             updateCommand.CommandText = "spApprovePracticum";
             updateCommand.CommandType = CommandType.StoredProcedure;
 
-            updateCommand.Parameters.AddWithValue("@practicumId", practicumID);
+            updateCommand.Parameters.AddWithValue("@practicumId", practicum.getPracticumID());
             updateCommand.Parameters["@practicumId"].Direction = ParameterDirection.Input;            
 
             try
@@ -308,6 +308,10 @@ namespace FinalBL
 
                 if (updateCommand.ExecuteNonQuery() > 0)
                 {
+                    if (practicum.getPostID() != 0)
+                    {
+                        PostingDB.FillPosting(practicum.getPostID());
+                    }
                     success = true;                    
                 }
             }

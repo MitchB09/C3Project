@@ -76,7 +76,7 @@ public partial class TestingExcel : System.Web.UI.Page
 
                 foreach (DataTable table in result.Tables)
                 {
-                    for (int i = 0; i < table.Rows.Count; i++)
+                    for (int i = 1; i < table.Rows.Count; i++)
                     {
                         string email = table.Rows[i].ItemArray[0].ToString();
 

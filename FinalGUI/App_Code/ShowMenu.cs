@@ -31,7 +31,7 @@ namespace FinalGUI.ShowMenu
                         "<a href=\"Postings.aspx\">Postings</a>" +
                     "</div>" +
                     "<div class=\"menuItem\">" +
-                        "<a href=\"#\">Employers</a>" +
+                        "<a href=\"UploadPracticum.aspx\">Upload Practicum</a>" +
                     "</div>" +
                     "<div class=\"menuItem\" id=\"StuAccount2\" runat=\"server\">" +
                         "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\">Upload Résumé</a>" +
