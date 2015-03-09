@@ -77,10 +77,10 @@ public partial class UpdatePassword : System.Web.UI.Page
         try
         {
             //If the old password matched the database entry
-            if (AccountDB.LogInAttempt(email, psdOldPassword.Text.GetHashCode().ToString()))
+            if (AccountDB.LogInAttempt(email, StringEncryption.Encrypt(psdOldPassword.Text)))
             {
                 //If the update makes a change to the table
-                if (AccountDB.UpdatePassword(email, psdNewPassword.Text.GetHashCode().ToString()) > 0)
+                if (AccountDB.UpdatePassword(email, StringEncryption.Encrypt(psdNewPassword.Text)) > 0)
                 {
                     string script = "<script type=\"text/javascript\">alert('Account Updated');window.location=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\"</script>";
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script); 

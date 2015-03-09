@@ -11,6 +11,7 @@ using System.Net.Mime;
 using System.Net;
 using System.Security.Cryptography;
 using FinalBL;
+using FinalGUI.StringEncrypt;
 
 public partial class ForgotPassword : System.Web.UI.Page
 {
@@ -34,7 +35,7 @@ public partial class ForgotPassword : System.Web.UI.Page
 
                 string newPasswd = Convert.ToBase64String(byteValues).Substring(0, 8);
 
-                if (AccountDB.UpdatePassword(email, newPasswd.GetHashCode().ToString()) > 0)
+                if (AccountDB.UpdatePassword(email, StringEncryption.Encrypt(newPasswd)) > 0)
                 {
                     //Both of these links aided in making this code
                     //support.google.com/mail/answer/13287

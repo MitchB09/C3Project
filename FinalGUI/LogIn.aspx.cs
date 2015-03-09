@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Security.Cryptography;
 using FinalBL;
+using FinalGUI.StringEncrypt;
 
 public partial class _Default : System.Web.UI.Page
 {
@@ -20,7 +21,7 @@ public partial class _Default : System.Web.UI.Page
         string user = username.Text;
         string pass = password.Text;
         //HashAlgorithm algorithm = SHA1.Create();
-        string hashPass = pass.GetHashCode().ToString();
+        string hashPass = StringEncryption.Encrypt(pass);
 
         Account result = new Account();
 
@@ -37,7 +38,7 @@ public partial class _Default : System.Web.UI.Page
             }
             else
             {
-                string script = "<script type=\"text/javascript\">alert('email or password is incorrect.');</script>";
+                string script = "<script type=\"text/javascript\">alert('email or password is incorrect." + hashPass + "');</script>";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
 
             }

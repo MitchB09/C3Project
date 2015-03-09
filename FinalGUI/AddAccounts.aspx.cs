@@ -14,6 +14,7 @@ using System.Security.Cryptography;
 
 using Excel;
 using FinalGUI.ShowMenu;
+using FinalGUI.StringEncrypt;
 using FinalBL;
 
 public partial class TestingExcel : System.Web.UI.Page
@@ -100,7 +101,7 @@ public partial class TestingExcel : System.Web.UI.Page
 
                             string password = Convert.ToBase64String(byteValues).Substring(0, 8);
 
-                            studentsEntered += StudentDB.InsertStudent(email, password.GetHashCode().ToString(), studentID, firstName, lastName, programCode,
+                            studentsEntered += StudentDB.InsertStudent(email, StringEncryption.Encrypt(password), studentID, firstName, lastName, programCode,
                                 phone, address, city, campus, additionalInfo);
 
                             MailMessage mail = new MailMessage();
@@ -198,7 +199,7 @@ public partial class TestingExcel : System.Web.UI.Page
 
                             string password = Convert.ToBase64String(byteValues).Substring(0, 8);
 
-                            instructorsAdded += InstructorDB.InsertInstructor(email, password.GetHashCode().ToString(), firstName, lastName, program, campus, contactInfo);
+                            instructorsAdded += InstructorDB.InsertInstructor(email, StringEncryption.Encrypt(password), firstName, lastName, program, campus, contactInfo);
 
                             MailMessage mail = new MailMessage();
 

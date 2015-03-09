@@ -78,7 +78,7 @@ public partial class Information : System.Web.UI.Page
                 content += "<a href=\"InfoDetails.aspx?fileId=" + StringEncryption.Encrypt(file.getFileId().ToString()) + "\" target=\"_blank\">"
                     + file.getFileName().Replace('_', ' ') + "</a>";
 
-                if (Session["usertype"].ToString() == "Admin")
+                if (Session["usertype"] != null && Session["usertype"].ToString() == "Admin")
                 {
 
                     content += "<a class=\"removeText\" href=\"RemovePublicFile.aspx?fileId=" + StringEncryption.Encrypt(file.getFileId().ToString()) + "\">Remove</a>";

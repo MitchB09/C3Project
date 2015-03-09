@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using FinalBL;
+using FinalGUI.StringEncrypt;
 
 public partial class CreateEmployerAccount : System.Web.UI.Page
 {
@@ -16,7 +17,7 @@ public partial class CreateEmployerAccount : System.Web.UI.Page
     protected void CreateAccount(object sender, EventArgs e)
     {
         string email = txtEmail.Text;
-        string password = txtPassword.Text.GetHashCode().ToString();
+        string password = StringEncryption.Encrypt(txtPassword.Text);
         string firstName = txtFirstName.Text;
         string lastName = txtLastName.Text;
         string companyName = txtCompanyName.Text;
