@@ -144,5 +144,38 @@ namespace FinalBL
 
             return file;
         }
+
+        public static int RemoveFile(int fileID)
+        {
+            SqlConnection connection = FinalProjDB.getConnection();
+
+            SqlCommand insertCommand = new SqlCommand();
+            insertCommand.Connection = connection;
+            insertCommand.CommandText = "spRemovePublicFile";
+            insertCommand.CommandType = CommandType.StoredProcedure;
+
+            insertCommand.Parameters.AddWithValue("@fileId", fileID);
+
+            insertCommand.Parameters["@fileId"].Direction = ParameterDirection.Input;
+            
+
+            int result = 0;
+
+            try
+            {
+                connection.Open();
+                result = insertCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return result;
+        }
     }
 }

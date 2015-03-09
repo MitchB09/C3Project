@@ -58,7 +58,7 @@ public partial class Information : System.Web.UI.Page
             AdminMenu.Visible = false;
         }
         else if (Session["usertype"].ToString() == "Admin")
-        {
+        {            
             UnknownMenu.Visible = false;
             InstructorMenu.Visible = false;
             StudentMenu.Visible = false;
@@ -76,8 +76,19 @@ public partial class Information : System.Web.UI.Page
             foreach(PublicFile file in fileList)
             {
                 content += "<a href=\"InfoDetails.aspx?fileId=" + StringEncryption.Encrypt(file.getFileId().ToString()) + "\" target=\"_blank\">"
-                    + file.getFileName().Replace('_', ' ') + "</a><br />";
+                    + file.getFileName().Replace('_', ' ') + "</a>";
+
+                if (Session["usertype"].ToString() == "Admin")
+                {
+
+                    content += "<a class=\"removeText\" href=\"RemovePublicFile.aspx?fileId=" + StringEncryption.Encrypt(file.getFileId().ToString()) + "\">Remove</a>";
+                }
+
+                content += "<br />";
+           
             }
+
+            content += "<br />";
 
             listOfPublicFiles.InnerHtml = content;
                 
@@ -88,7 +99,7 @@ public partial class Information : System.Web.UI.Page
             ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
         }
 
-    }
+    }    
 
     protected void SubmitFile(object sender, EventArgs e)
     {
@@ -107,26 +118,14 @@ public partial class Information : System.Web.UI.Page
                 UploadFile.PostedFile.InputStream.Read(documentBinary, 0, fileSize);
 
                 if (fileExtention == ".docx" || fileExtention == ".doc" || fileExtention == ".pdf")
-                {
-                    /*if (ResumeDB.FindResume(email))
+                {                    
+                    if (PublicFileDB.UploadFile(fileName, fileExtention, System.DateTime.Now, documentBinary) > 0)
                     {
-                        //If a resumé is found update the current one                    
-                        if (ResumeDB.UpdateResume(email, fileName, fileExtention, System.DateTime.Now, documentBinary, fileSize) > 0)
-                        {
-                            string script = "<script type=\"text/javascript\">alert('Resume Sucessfully Uploaded.');</script>";
-                            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
-
-                        }
+                        string script = "<script type=\"text/javascript\">alert('File Sucessfully Uploaded.');</script>";
+                        ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+                        Response.Redirect("Information.aspx");
                     }
-                    else 
-                    { */
-                        //If a resumé is not found a new row is created
-                        if (PublicFileDB.UploadFile(fileName, fileExtention, System.DateTime.Now, documentBinary) > 0)
-                        {
-                            string script = "<script type=\"text/javascript\">alert('File Sucessfully Uploaded.');</script>";
-                            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
-                        }
-                    //}
+                    
                 }
                 else
                 {

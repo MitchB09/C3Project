@@ -40,6 +40,11 @@
       
 }
 
+.removeText {
+    position:absolute;
+    left: 600px;
+}
+
 .menu{
     float: left;
     border: 2px solid #829600;

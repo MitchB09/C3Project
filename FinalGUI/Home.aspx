@@ -44,13 +44,7 @@
                     <br />
                     <small>Check out all current available posings</small>
                 </div>
-                <hr />
-                <div class="homeMenuOption">
-                    <a href="#">View List of Potential Employers</a>
-                    <br />
-                    <small>Check the list of potential employers in the province</small>
-                </div>
-                <hr />
+                <hr />                
                 <div class="homeMenuOption" id="StuAccount4" runat="server">
                     <a href="MyAccount.aspx">Upload new Résumé</a>
                     <br />
@@ -58,18 +52,12 @@
                 </div>
                 <hr />
                 <div class="homeMenuOption">
-                    <a href="#">View Practicum Information</a>
+                    <a href="Information.aspx">View Practicum Information</a>
                     <br />
                     <small>View general information about the practicums</small>
                 </div>
             </div> 
-            <div id="EmployerContent" class="content" runat="server">
-                <div class="homeMenuOption" id="EmpAccount2" runat="server">
-                    <a href="#">Go to My Account</a>
-                    <br />
-                    <small>View and make schanges to your account.</small>
-                </div>
-                <hr />
+            <div id="EmployerContent" class="content" runat="server">                
                 <div class="homeMenuOption">
                     <a href="Students.aspx">View Student Profiles</a>
                     <br />
@@ -86,6 +74,12 @@
                     <a href="CreatePosting.aspx">Upload new Posting</a>
                     <br />
                     <small>Change your current résumé</small>
+                </div>
+                <hr />
+                <div class="homeMenuOption" id="EmpAccount2" runat="server">
+                    <a href="UpdatePassword.aspx">Update Password</a>
+                    <br />
+                    <small>Change your current password.</small>
                 </div>
                 <hr />
                 <div class="homeMenuOption">
@@ -121,9 +115,9 @@
             </div> 
             <div id="AdminContent" runat="server" class="content">
                 <div class="homeMenuOption">
-                    <a href="#">Admin Stuff</a>
+                    <a href="AddAccounts.aspx">Add Accounts</a>
                     <br />
-                    <small>Subinfo for Admin stuff</small>
+                    <small>Add Student or Instructor Accounts.</small>
                 </div>
             </div>
            

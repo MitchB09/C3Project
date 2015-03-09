@@ -51,19 +51,19 @@ namespace FinalGUI.ShowMenu
             string menu = 
                 "<div  class=\"menuItem\">" +
                     "<a href=\"Home.aspx\">Home</a>" +
-               "</div>" +
-               "<div class=\"menuItem\">" +
-                    "<a href=\"#\">My Account</a>" +
-               "</div>" +
+               "</div>" +               
                "<div class=\"menuItem\">" +
                     "<a href=\"CreatePosting.aspx\">Create Posting</a>" +
                "</div>" +            
                "<div class=\"menuItem\">" +
-                    "<a href=\"Students.aspx\">Students</a>" +
+                    "<a href=\"Students.aspx\">Browse Students</a>" +
                "</div>" +            
                "<div class=\"menuItem\">" +
-                    "<a href=\"#\">View Applications</a>" +
-               "</div>" +            
+                    "<a href=\"MyPostings.aspx\">My Postings</a>" +
+               "</div>" +
+               "<div class=\"menuItem\">" +
+                    "<a href=\"UpdatePassword.aspx\">Update Password</a>" +
+               "</div>" +
                "<div class=\"menuItem\">" +
                     "<a href=\"Information.aspx\">Information</a>" +
                "</div>" +            
@@ -79,22 +79,21 @@ namespace FinalGUI.ShowMenu
             string menu =
                "<div  class=\"menuItem\">" +
                     "<a href=\"Home.aspx\">Home</a>" +
-               "</div>" +
-               "<div class=\"menuItem\">" +
-                    "<a href=\"#\">My Account</a>" +
-                "</div>" +
+               "</div>" +               
                "<div class=\"menuItem\">" +
                     "<a href=\"Postings.aspx\">Postings</a>" +
                 "</div>" +
 
                 "<div class=\"menuItem\">" +
-                    "<a href=\"#\">Employers</a>" +
+                    "<a href=\"Students.aspx\">Students</a>" +
                 "</div>" +
 
                 "<div class=\"menuItem\">" +
                     "<a href=\"CreatePosting.aspx\">Create Posting</a>" +
                 "</div>" +
-
+                "<div class=\"menuItem\">" +
+                    "<a href=\"BrowsePracticums.aspx\">Practicums</a>" +
+                "</div>" +
                 "<div class=\"menuItem\">" +
                     "<a href=\"Information.aspx\">Information</a>" +
                 "</div>" +
@@ -112,17 +111,15 @@ namespace FinalGUI.ShowMenu
                     "<div  class=\"menuItem\">" +
                         "<a href=\"Home.aspx\">Home</a>" +
                     "</div>" +
-                    "<div class=\"menuItem\" id=\"StuAccount1\" runat=\"server\">" +
-                        "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\">My Account</a>" +
-                    "</div>" +
+                    
                     "<div  class=\"menuItem\">" +
                         "<a href=\"Postings.aspx\">Postings</a>" +
                     "</div>" +
                     "<div class=\"menuItem\">" +
-                        "<a href=\"#\">Employers</a>" +
+                        "<a href=\"BrowsePracticums.aspx\">Practicums</a>" +
                     "</div>" +
-                    "<div class=\"menuItem\" id=\"StuAccount2\" runat=\"server\">" +
-                        "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\">Upload Résumé</a>" +
+                    "<div class=\"menuItem\">" +
+                        "<a href=\"AddAccounts.aspx\">Add Accounts</a>" +
                     "</div>" +
                     "<div class=\"menuItem\">" +
                         "<a href=\"Information.aspx\">Information</a>" +

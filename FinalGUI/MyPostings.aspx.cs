@@ -22,7 +22,7 @@ public partial class MyPostings : System.Web.UI.Page
         }
         else
         {
-            throw new HttpException(403, "You must be logged.");
+            HttpContext.Current.Response.Redirect("LogIn.aspx");
             //HttpContext.Current.Response.Redirect("LogIn.aspx");
         }
         
@@ -38,7 +38,7 @@ public partial class MyPostings : System.Web.UI.Page
         }
         else if (Session["usertype"].ToString() == "Student")
         {
-            throw new HttpException(403, "You must be logged.");
+            HttpContext.Current.Response.Redirect("LogIn.aspx");
         }
         else if (Session["usertype"].ToString() == "Employer")
         {
