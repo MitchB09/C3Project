@@ -18,6 +18,15 @@
               name="frmLogIn"
               runat="server"
               >
+            <div id="UnknownMenu" class="menu" runat="server">
+                <div  class="menuItem">
+                    <a href="LogIn.aspx">Login</a>
+                </div>
+                <div class="menuItem" id="Div2" runat="server">
+                    <a href="CreateEmployerAccount.aspx">Create Account</a>
+                </div>                    
+                
+            </div>
             <div id="StudentMenu" class="menu" runat="server">
                 <div  class="menuItem">
                     <a href="Home.aspx">Home</a>
@@ -95,16 +104,28 @@
                     <a href="LogOut.aspx">Log Out</a>
                 </div>
             </div>
+            <div id="AdminMenu" class="menu" runat="server">
+
+            </div>
+
             <div class="content" runat="server">
                 
-                <a href="InfoDetails.aspx?form=NBCC_Visual_Identity_Standards_v1.pdf" runat="server" target="_blank">NBCC Visual Identity Standards</a><br />
-                <a href="InfoDetails.aspx?form=2015_ITBA_Applied_Work_Experience_Handbook.pdf" runat="server" target="_blank">IT:Business Analyst Applied Work Experience Handbook</a><br />
-                <a href="InfoDetails.aspx?form=2015_ITPA_Applied_Work_Experience_Handbook.pdf" runat="server" target="_blank">IT:Programmer Analyst Applied Work Experience Handbook</a><br />
-                <a href="InfoDetails.aspx?form=academic-excellence.pdf" runat="server" target="_blank">Academic Excellence Policy</a><br />
-                <a href="InfoDetails.aspx?form=academic-integrity.pdf" runat="server" target="_blank">Academic Integrity Policy</a><br />                
-                <a href="InfoDetails.aspx?form=applied-workplace-experience.pdf" runat="server" target="_blank">Applied Workplace Experience Information</a><br />
-                <a href="InfoDetails.aspx?form=certification-and-graduation.pdf" runat="server" target="_blank">Certification and Graduation Information</a><br />
-                <a href="InfoDetails.aspx?form=student-code-of-conduct.pdf" onclick="OpenPDF" runat="server" target="_blank">NBCC Student Code of Conduct</a><br />
+                <div id="listOfPublicFiles" runat="server">
+                    <a href="InfoDetails.aspx?form=NBCC_Visual_Identity_Standards_v1.pdf" runat="server" target="_blank">NBCC Visual Identity Standards</a><br />
+                    <a href="InfoDetails.aspx?form=2015_ITBA_Applied_Work_Experience_Handbook.pdf" runat="server" target="_blank">IT:Business Analyst Applied Work Experience Handbook</a><br />
+                    <a href="InfoDetails.aspx?form=2015_ITPA_Applied_Work_Experience_Handbook.pdf" runat="server" target="_blank">IT:Programmer Analyst Applied Work Experience Handbook</a><br />
+                    <a href="InfoDetails.aspx?form=academic-excellence.pdf" runat="server" target="_blank">Academic Excellence Policy</a><br />
+                    <a href="InfoDetails.aspx?form=academic-integrity.pdf" runat="server" target="_blank">Academic Integrity Policy</a><br />                
+                    <a href="InfoDetails.aspx?form=applied-workplace-experience.pdf" runat="server" target="_blank">Applied Workplace Experience Information</a><br />
+                    <a href="InfoDetails.aspx?form=certification-and-graduation.pdf" runat="server" target="_blank">Certification and Graduation Information</a><br />
+                    <a href="InfoDetails.aspx?form=student-code-of-conduct.pdf" onclick="OpenPDF" runat="server" target="_blank">NBCC Student Code of Conduct</a><br />
+                </div>
+                
+                
+                <div id="AdminContols" runat="server">
+                    <asp:FileUpload runat="server" ID="UploadFile" />
+                    <asp:Button runat="server" ID="Submit" OnClick="SubmitFile" Text="Upload File" />
+                </div>
                 
             </div>
             

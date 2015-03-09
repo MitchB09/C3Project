@@ -96,7 +96,7 @@ public partial class Students : System.Web.UI.Page
 
             foreach (Student student in studentList)
             {
-                content += "<div class=\"student\"><a href=\"StudentDetails.aspx?email=" + StringEncryption.Encrpt(student.getEMail()) + "\">" + student.getFirstName() + " " + student.getLastName() + "</a><br />" + student.getProgram() + "<br />" + student.getCampus() + "</div><hr />";
+                content += "<div class=\"student\"><a href=\"StudentDetails.aspx?email=" + StringEncryption.Encrypt(student.getEMail()) + "\">" + student.getFirstName() + " " + student.getLastName() + "</a><br />" + student.getProgram() + "<br />" + student.getCampus() + "</div><hr />";
             }
 
             //Start div for pageListing

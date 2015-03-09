@@ -74,7 +74,7 @@ public partial class UnvettedEmployers : System.Web.UI.Page
                 //For each posting in list for this page(i.e. page 1 is postings 1 to 5)
                 foreach (Employer employer in UnvettedList)
                 {
-                    content += "<div class=\"employer\"><a href=\"UnvettedDetails.aspx?empEMail=" + StringEncryption.Encrpt(employer.getEMail()) + "\">" + employer.getCompanyName() + "</a><br />" + employer.getFirstName() + " " + employer.getLastName() + "<br />" + employer.getEMail() + "</div><hr />";
+                    content += "<div class=\"employer\"><a href=\"UnvettedDetails.aspx?empEMail=" + StringEncryption.Encrypt(employer.getEMail()) + "\">" + employer.getCompanyName() + "</a><br />" + employer.getFirstName() + " " + employer.getLastName() + "<br />" + employer.getEMail() + "</div><hr />";
                 }
 
                 //Start div for pageListing

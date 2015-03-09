@@ -94,35 +94,29 @@
                     <small>View general information about the practicums</small>
                 </div>
             </div>
-            <div id="InstructorContent"  class="content" runat="server">
-                <div class="homeMenuOption" id="InsAccount2" runat="server">
-                    <a href="#">Go to My Account</a>
-                    <br />
-                    <small>View and make schanges to your account.</small>
-                </div>
-                <hr />
+            <div id="InstructorContent"  class="content" runat="server">                 
                 <div class="homeMenuOption">
                     <a href="Postings.aspx">Go to Current Postings</a>
                     <br />
                     <small>Check out all current available posings</small>
                 </div>
-                <hr />
-                <div class="homeMenuOption">
-                    <a href="#">Edit List of Potential Employers</a>
-                    <br />
-                    <small>Check the list of potential employers in the province</small>
-                </div>
-                <hr />
+                <hr />                
                 <div class="homeMenuOption">
                     <a href="UnvettedEmployers.aspx">View Unvetted Employers</a>
                     <br />
-                    <small>Change your current résumé</small>
+                    <small>View and judge unapproved employers</small>
                 </div>
                 <hr />
                 <div class="homeMenuOption">
-                    <a href="#">View Pending Practicums</a>
+                    <a href="BrowsePracticums.aspx">View Pending Practicums</a>
                     <br />
-                    <small>View general information about the practicums</small>
+                    <small>Browse practicums pending approval</small>
+                </div>
+                <hr />
+                <div class="homeMenuOption">
+                    <a href="UpdatePassword.aspx">Update Password</a>
+                    <br />
+                    <small>Update your current password.</small>
                 </div>
             </div> 
             <div id="AdminContent" runat="server" class="content">

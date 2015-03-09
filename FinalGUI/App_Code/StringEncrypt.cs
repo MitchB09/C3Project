@@ -21,7 +21,7 @@ namespace FinalGUI.StringEncrypt
         }
 
         //Code borrowed from http://www.aspsnippets.com/Articles/Encrypt-and-Decrypt-QueryString-Parameter-Values-in-ASPNet-using-C-and-VBNet.aspx
-        public static string Encrpt(string plainText)
+        public static string Encrypt(string plainText)
         {
             string encryptionKey = "MBILENSKY009";
             byte[] plainByte = Encoding.Unicode.GetBytes(plainText);

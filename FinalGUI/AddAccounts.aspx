@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MyPostingDetails.aspx.cs" Inherits="MyPostingDetails" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddAccounts.aspx.cs" Inherits="TestingExcel" %>
 
 <!DOCTYPE html>
 
@@ -29,29 +29,22 @@
                
             </div>
             <div id="AdminMenu" class="menu" runat="server">
-               
+
             </div>
                       
             <div id="Content" class="content" runat="server">
-                <div id="PostDetails" runat="server">
-                    No Data
-                </div>
-                <div id="EmployerDetails" runat="server">
-                    No Data
-                </div>
+                <span class="postTitle">Add Student by Excel</span>
                 <br />
-                <asp:Button runat="server" OnClick="EditPosting" Text="Edit Posting" />
-                
+                <asp:FileUpload  ID="fulStudentUpload" runat="server" />
+                <asp:Button Text="Add Students" onClick="AddStudents" runat="server" />
+                <br />
+                <br />
+                <span class="postTitle">Add Instructor by Excel</span>
+                <br />
+                <asp:FileUpload  ID="fulInstructorUpload" runat="server" />
+                <asp:Button Text="Add Instructors" onClick="AddInstructors" runat="server" />
             </div>
-            <div id="EditContent" runat="server" class="content">
-                <asp:Label runat="server" Text="Job Title: " CssClass="detailHeading" /><br />
-                <asp:TextBox ID="txtJobTitle" runat="server" CssClass="details" />
-                <br />
-                <asp:Label runat="server" Text="Additional Details: " CssClass="detailHeading" /><br />
-                <asp:TextBox ID="txtAdditionalDetails" runat="server" CssClass="details" TextMode="MultiLine" Columns="50" Rows="5" />
-                <br />
-                <asp:Button OnClick="UpdatePosting" runat="server" Text="Update" />
-            </div> 
+             
             
             
         </form>

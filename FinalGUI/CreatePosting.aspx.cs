@@ -117,7 +117,7 @@ public partial class CreatePosting : System.Web.UI.Page
 
     protected void SubmitPosting(object sender, EventArgs e)
     {
-        if (PostingDB.CreatePosting(ContactEMail.Text, JobTitle.Text, AddDetails.Text) > 0)
+        if (PostingDB.CreatePosting(ContactEMail.Text, CompanyName.Text, ContactName.Text, JobTitle.Text, AddDetails.Text) > 0)
         {
             string script = "<script type=\"text/javascript\">alert('Posting Successfully Created.');</script>";
             ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);

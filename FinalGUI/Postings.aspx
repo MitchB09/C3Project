@@ -28,6 +28,9 @@
             <div id="InstructorMenu" class="menu" runat="server">
                
             </div>
+            <div id="AdminMenu" class="menu" runat="server">
+               
+            </div>
 
             
             <div id="Content"  class="content" runat="server">

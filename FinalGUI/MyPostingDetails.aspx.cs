@@ -44,6 +44,10 @@ public partial class MyPostingDetails : System.Web.UI.Page
         {
             ShowInstructor(email);
         }
+        else if (Session["usertype"].ToString() == "Admin")
+        {
+            ShowAdmin(email);
+        }
 
         try
         {
@@ -66,7 +70,7 @@ public partial class MyPostingDetails : System.Web.UI.Page
             else
             {
                 EmployerDetails.InnerHtml = employer.getFirstName() + " " + employer.getLastName() + "<br />" + employer.getCompanyPosition() + " at " + employer.getCompanyName() + "<br />" + employer.getCompanyAddress() + " " + employer.getCompanyCity() + ", " + employer.getCompanyProvince() + "<br />Phone: " + employer.getPhoneNumber() + "<br />Email: " + employer.getEMail();
-            }
+            }        
 
 
         }
@@ -90,6 +94,9 @@ public partial class MyPostingDetails : System.Web.UI.Page
 
         InstructorMenu.Visible = false;
         // InstructorContent.Visible = false;
+
+        AdminMenu.Visible = false;
+        //EmployerContent.Visible = false;
     }
 
     public void ShowEmployer(string email)
@@ -102,6 +109,9 @@ public partial class MyPostingDetails : System.Web.UI.Page
 
         InstructorMenu.Visible = false;
         //InstructorContent.Visible = false;
+
+        AdminMenu.Visible = false;
+        //EmployerContent.Visible = false;
     }
 
     public void ShowInstructor(string email)
@@ -114,7 +124,25 @@ public partial class MyPostingDetails : System.Web.UI.Page
 
         InstructorMenu.InnerHtml = ShowMenu.ShowInstructor(email);
         //InstructorContent.Visible = true;
+
+        AdminMenu.Visible = false;
+        //EmployerContent.Visible = false;
     }
+
+    public void ShowAdmin(string email)
+    {
+        StudentMenu.Visible = false;
+        //StudentContent.Visible = false;
+
+        EmployerMenu.Visible = false;
+        //EmployerContent.Visible = false;
+
+        InstructorMenu.Visible = false;
+        //InstructorContent.Visible = true;
+
+        AdminMenu.InnerHtml = ShowMenu.ShowAdmin(email);
+    }
+
     protected void EditPosting(object sender, EventArgs e)
     {
         Content.Visible = false;
@@ -144,7 +172,7 @@ public partial class MyPostingDetails : System.Web.UI.Page
         {
             if (PostingDB.UpdatePosting(postID, txtJobTitle.Text, txtAdditionalDetails.Text) > 0)
             {
-                string script = "<script type=\"text/javascript\">alert('Posting Successfully Updated.');window.location = \"MyPostingDetails.aspx?PostID=" + StringEncryption.Encrpt(postID.ToString()) + "\"</script>";
+                string script = "<script type=\"text/javascript\">alert('Posting Successfully Updated.');window.location = \"MyPostingDetails.aspx?PostID=" + StringEncryption.Encrypt(postID.ToString()) + "\"</script>";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
             }
             else

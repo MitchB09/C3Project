@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
+using System.Security.Cryptography;
 
 using FinalGUI.StringEncrypt;
 using FinalGUI.ShowMenu;
@@ -17,6 +21,8 @@ public partial class PostingDetails : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        AdminControls.Visible = false;
+
         if (Session["email"] != null)
         {
             email = Session["email"].ToString();
@@ -44,6 +50,12 @@ public partial class PostingDetails : System.Web.UI.Page
         else if (Session["usertype"].ToString() == "Instructor")
         {
             ShowInstructor(email);
+            AdminControls.Visible = true;
+        }
+        else if (Session["usertype"].ToString() == "Admin")
+        {
+            ShowAdmin(email);
+            AdminControls.Visible = true;
         }
 
         try
@@ -68,13 +80,49 @@ public partial class PostingDetails : System.Web.UI.Page
             {
                 EmployerDetails.InnerHtml = employer.getFirstName() + " " + employer.getLastName() + "<br />" + employer.getCompanyPosition() + " at " + employer.getCompanyName() + "<br />" + employer.getCompanyAddress() + " " + employer.getCompanyCity() + ", " + employer.getCompanyProvince() + "<br />Phone: " + employer.getPhoneNumber() + "<br />Email: " + employer.getEMail();
             }
-            EmailDiv.InnerHtml = "<a href=\"mailto:" + posting.getEmpEmail() + "?subject=Posting\">Email</a>";
+            EmailDiv.InnerHtml = "<a href=\"mailto:" + posting.getEmpEmail() + "?subject=Posting\">Email</a>";            
 
         }
         catch
         {
 
         }
+    }
+
+    public void StartRemovePosting(object sender, EventArgs e)
+    {
+        RemoveDetails.Visible = true;
+        btnOpenRemove.Visible = false;
+    }
+
+    public void RemovePosting(object sender, EventArgs e)
+    {
+        Posting posting = new Posting();
+        posting = PostingDB.GetPostingByPostID(postID);
+
+        string reason = txtReason.Text;
+
+        PostingDB.RemovePosting(posting, email, reason);
+
+        MailMessage mail = new MailMessage();
+
+        mail.From = new MailAddress("C3ProjectNBCC@gmail.com");
+        mail.To.Add(posting.getEmpEmail());
+        //
+        mail.Subject = "C3 Posting Removal";
+        mail.Body = "Your posting titled \"" + posting.getJobTitle() + "\" has been removed."
+            + "\n Reason: " + reason + ".";
+        //
+        SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+        smtp.EnableSsl = true;
+        smtp.Timeout = 300000;
+        smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+        //
+        smtp.Credentials = new NetworkCredential("C3ProjectNBCC@gmail.com", "Jack & Jill");
+        smtp.Send(mail);
+
+        string script = "<script type=\"text/javascript\">alert('Successfully Removed Posting.');window.location = \"Postings.aspx\"</script>";
+        ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
     }
 
     public void ShowStudent(string email)
@@ -86,6 +134,8 @@ public partial class PostingDetails : System.Web.UI.Page
 
         InstructorMenu.Visible = false;
         // InstructorContent.Visible = false;
+
+        AdminMenu.Visible = false;
     }
 
     public void ShowEmployer(string email)
@@ -98,6 +148,8 @@ public partial class PostingDetails : System.Web.UI.Page
 
         InstructorMenu.Visible = false;
         //InstructorContent.Visible = false;
+
+        AdminMenu.Visible = false;
     }
 
     public void ShowInstructor(string email)
@@ -110,6 +162,23 @@ public partial class PostingDetails : System.Web.UI.Page
 
         InstructorMenu.InnerHtml = ShowMenu.ShowInstructor(email);
         //InstructorContent.Visible = true;
+
+        AdminMenu.Visible = false;
     }
 
+    public void ShowAdmin(string email)
+    {
+        StudentMenu.Visible = false;
+        //StudentContent.Visible = false;
+
+        EmployerMenu.Visible = false;
+        //EmployerContent.Visible = false;
+
+        InstructorMenu.Visible = false;
+        //InstructorContent.Visible = true;
+
+        AdminMenu.InnerHtml = ShowMenu.ShowAdmin(email);
+    }
+
+    
 }

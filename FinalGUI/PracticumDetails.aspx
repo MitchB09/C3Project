@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PostingDetails.aspx.cs" Inherits="PostingDetails" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PracticumDetails.aspx.cs" Inherits="PracticumDetails" %>
 
 <!DOCTYPE html>
 
@@ -46,7 +46,8 @@
                 </div>
                 <div id="AdminControls" runat="server" visible="false">
                     <br /><br />
-                    <asp:Button runat="server" ID="btnOpenRemove" OnClick="StartRemovePosting" Text="Remove" />
+                    <asp:Button runat="server" ID="btnApprove" OnClick="ApprovePracticum" Text="Approve" />
+                    <asp:Button runat="server" ID="btnOpenRemove" OnClick="StartRemovePosting" Text="Reject" />
                     <script>
                         function confirmation() {
                             if (confirm("Are you sure you want to delete?"))
@@ -58,7 +59,7 @@
                     <div id="RemoveDetails" runat="server" visible="false">
                         <asp:Label Text="Reason:" CssClass="detailHeading" runat="server" /><br />
                         <asp:TextBox runat="server" ID="txtReason" CssClass="details" TextMode="MultiLine" Columns="50" Rows="5" /><br />
-                        <asp:Button runat="server" ID="btnRemove" onClientClick="return confirmation();" OnClick="RemovePosting" Text="Remove" />
+                        <asp:Button runat="server" ID="btnRemove" onClientClick="return confirmation();" OnClick="RejectPracticum" Text="Reject" />
                     </div>
                 </div>
                 

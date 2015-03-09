@@ -82,7 +82,7 @@ public partial class UpdatePassword : System.Web.UI.Page
                 //If the update makes a change to the table
                 if (AccountDB.UpdatePassword(email, psdNewPassword.Text.GetHashCode().ToString()) > 0)
                 {
-                    string script = "<script type=\"text/javascript\">alert('Account Updated');window.location=\"MyAccount.aspx?email=" + StringEncryption.Encrpt(email) + "\"</script>";
+                    string script = "<script type=\"text/javascript\">alert('Account Updated');window.location=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\"</script>";
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script); 
                 }
             }

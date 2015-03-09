@@ -13,12 +13,12 @@
               runat="server"
               >
             <img src="images/NBCCLogoSmall.png" alt="Alternate Text"/>
-            <label for="txtUsername">email:</label>
+            <label for="username">email:</label>
             <br />
             <asp:Textbox ID='username' maxlength="50" runat="server"  />
             <br />
             <br />
-            <label for="psdPassword">Password:</label>
+            <label for="password">Password:</label>
             <br />
             <asp:Textbox TextMode="password" ID="password" maxlength="36" runat="server" />
             <br />

@@ -72,7 +72,7 @@ public partial class MyPostings : System.Web.UI.Page
                 //For each posting in list for this page(i.e. page 1 is postings 1 to 5)
                 foreach (Posting posting in postingList)
                 {
-                    content += "<div class=\"posting\"><a href=\"MyPostingDetails.aspx?postID=" + StringEncryption.Encrpt(posting.getPostID().ToString()) + "\">" + posting.getJobTitle() + "</a><br />" + posting.getPostID() + "<br />Date Added: " +
+                    content += "<div class=\"posting\"><a href=\"MyPostingDetails.aspx?postID=" + StringEncryption.Encrypt(posting.getPostID().ToString()) + "\">" + posting.getJobTitle() + "</a><br />" + posting.getPostID() + "<br />Date Added: " +
                         posting.getDateAdded().ToShortDateString() + "</div><hr />";
                 }
 

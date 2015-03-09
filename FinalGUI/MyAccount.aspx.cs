@@ -28,8 +28,16 @@ public partial class MyAccount : System.Web.UI.Page
         {
             email = String.Empty;
         }
-
-        if (Session["usertype"] == null || StringEncryption.Decrypt(Request.QueryString["email"]) != email)
+        
+        if (Session["usertype"].ToString() == "Employer")
+        {
+            HttpContext.Current.Response.Redirect("Home.aspx");
+        }
+        else if (Session["usertype"].ToString() == "Instructor")
+        {
+            HttpContext.Current.Response.Redirect("Home.aspx");
+        }
+        else if (Session["usertype"] == null || StringEncryption.Decrypt(Request.QueryString["email"]) != email)
         {
             HttpContext.Current.Response.Redirect("LogIn.aspx");
         }
@@ -37,14 +45,7 @@ public partial class MyAccount : System.Web.UI.Page
         {
             ShowStudent(email);
         }
-        else if (Session["usertype"].ToString() == "Employer")
-        {
-            ShowEmployer(email);
-        }
-        else if (Session["usertype"].ToString() == "Instructor")
-        {
-            ShowInstructor(email);
-        }
+        
 
     }
 
@@ -190,7 +191,7 @@ public partial class MyAccount : System.Web.UI.Page
         {
             if (StudentDB.SelfUpdateStudent(email, phoneNumber, address, city, additionalInfo) > 0)
             {
-                string script = "<script type=\"text/javascript\">alert('Account Successfully Updated.');window.location=\"MyAccount.aspx?email=" + StringEncryption.Encrpt(email) + "\";</script>";
+                string script = "<script type=\"text/javascript\">alert('Account Successfully Updated.');window.location=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\";</script>";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
             }
         }

@@ -25,7 +25,7 @@ namespace FinalGUI.ShowMenu
                         "<a href=\"Home.aspx\">Home</a>" +
                     "</div>" +
                     "<div class=\"menuItem\" id=\"StuAccount1\" runat=\"server\">" +
-                        "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrpt(email) + "\">My Account</a>" +
+                        "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\">My Account</a>" +
                     "</div>" +
                     "<div  class=\"menuItem\">" +
                         "<a href=\"Postings.aspx\">Postings</a>" +
@@ -34,7 +34,7 @@ namespace FinalGUI.ShowMenu
                         "<a href=\"#\">Employers</a>" +
                     "</div>" +
                     "<div class=\"menuItem\" id=\"StuAccount2\" runat=\"server\">" +
-                        "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrpt(email) + "\">Upload Résumé</a>" +
+                        "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\">Upload Résumé</a>" +
                     "</div>" +
                     "<div class=\"menuItem\">" +
                         "<a href=\"Information.aspx\">Information</a>" +
@@ -113,7 +113,7 @@ namespace FinalGUI.ShowMenu
                         "<a href=\"Home.aspx\">Home</a>" +
                     "</div>" +
                     "<div class=\"menuItem\" id=\"StuAccount1\" runat=\"server\">" +
-                        "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrpt(email) + "\">My Account</a>" +
+                        "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\">My Account</a>" +
                     "</div>" +
                     "<div  class=\"menuItem\">" +
                         "<a href=\"Postings.aspx\">Postings</a>" +
@@ -122,7 +122,7 @@ namespace FinalGUI.ShowMenu
                         "<a href=\"#\">Employers</a>" +
                     "</div>" +
                     "<div class=\"menuItem\" id=\"StuAccount2\" runat=\"server\">" +
-                        "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrpt(email) + "\">Upload Résumé</a>" +
+                        "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\">Upload Résumé</a>" +
                     "</div>" +
                     "<div class=\"menuItem\">" +
                         "<a href=\"Information.aspx\">Information</a>" +
