@@ -76,7 +76,7 @@ public partial class MyPostingDetails : System.Web.UI.Page
         }
         catch(Exception ex)
         {
-            string script = "<script type=\"text/javascript\">alert('Error Finding Posting.');window.location = \"MyPostings.aspx\"</script>";
+            string script = "<script type=\"text/javascript\">alert('Error Finding Posting. Error: " + ex + "');window.location = \"MyPostings.aspx\"</script>";
             ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
         }
     }
@@ -166,6 +166,18 @@ public partial class MyPostingDetails : System.Web.UI.Page
         }
 
     }
+
+    public void RemovePosting(object sender, EventArgs e)
+    {
+        Posting posting = new Posting();
+        posting = PostingDB.GetPostingByPostID(postID);        
+
+        PostingDB.RemovePosting(posting, email, "Employer Removed Posting");
+
+        string script = "<script type=\"text/javascript\">alert('Successfully Removed Posting.');window.location = \"MyPostings.aspx\"</script>";
+        ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+    }
+
     protected void UpdatePosting(object sender, EventArgs e)
     {
         try

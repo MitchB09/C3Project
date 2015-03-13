@@ -11,7 +11,7 @@ namespace FinalDL
     {
         public static SqlConnection getConnection()
         {
-            String connectionString = "Data Source=localhost;Initial Catalog=C3MBilensky_test;Persist Security Info=True;User ID=mbilensky;Password=Pass5000067!";
+            String connectionString = "Data Source=localhost;Initial Catalog=C3MBilensky_test;Persist Security Info=True;User ID=sa;Password=123456";
             return new SqlConnection(connectionString);
         }
     }

@@ -40,8 +40,9 @@
                     No Data
                 </div>
                 <br />
-                <asp:Button runat="server" OnClick="EditPosting" Text="Edit Posting" />
-                
+                <asp:Button runat="server" OnClick="EditPosting" Text="Edit Posting" />&nbsp;&nbsp;&nbsp;
+                <asp:Button runat="server" OnClick="RemovePosting" Text="RemovePosting" />
+
             </div>
             <div id="EditContent" runat="server" class="content">
                 <asp:Label runat="server" Text="Job Title: " CssClass="detailHeading" /><br />

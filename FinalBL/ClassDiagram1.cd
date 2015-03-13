@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FinalBL.Account" Collapsed="true">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAIAIAAAAAAAAAAIAAAAAAAAAAAgAAAAAgAACIA=</HashCode>
+      <FileName>Account.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.AccountDB" Collapsed="true">
+    <Position X="5.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAABAAAAAAAABAAAAAQAAIAAAA=</HashCode>
+      <FileName>AccountDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.Employer" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEEIARAAEQABBACAAEQAkgABAAAAAJACEAAAUg=</HashCode>
+      <FileName>Employer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.EmployerDB" Collapsed="true">
+    <Position X="7.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgBAAAAAAEgAAAAAAAAACAAAAAAAABAAA=</HashCode>
+      <FileName>EmployerDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.Instructor" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIABACAQAAAAAAQAAAAACAAAAAIIACEAYgAE=</HashCode>
+      <FileName>Instructor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.InstructorDB" Collapsed="true">
+    <Position X="9.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InstructorDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.Posting" Collapsed="true">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQABAIBAAAoACAgIAAABAggQAACAIAAAhAAAgAEAAAQ=</HashCode>
+      <FileName>Posting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.PostingDB" Collapsed="true">
+    <Position X="11" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAhgBAAIAAAAAAAAAAQAIAAAAgAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>PostingDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.Practicum" Collapsed="true">
+    <Position X="5.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQABAABABEgAAAAIAEBBAggUAACAAAAAjAKABAEAAAQ=</HashCode>
+      <FileName>Practicum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.PracticumDB" Collapsed="true">
+    <Position X="7.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACEAAAAAAAAAAAAgAAAAAAAAAAAAAAQAAAAABAAI=</HashCode>
+      <FileName>PracticumDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.PublicFile" Collapsed="true">
+    <Position X="9.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQAAAAoAIAIAgAAAAABAAAAQgAAAAAAAAkAAAAkAAAA=</HashCode>
+      <FileName>PublicFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.PublicFileDB" Collapsed="true">
+    <Position X="11" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACBACAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PublicFileDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.Resume" Collapsed="true">
+    <Position X="5.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQAAAAgAAAIAAAAgAABAAAAQgAAgAAAgAEIAAAEACIA=</HashCode>
+      <FileName>Resume.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.ResumeDB" Collapsed="true">
+    <Position X="7.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAQAAAAAAAAAAAAAAAAACAAAAgAAAg=</HashCode>
+      <FileName>ResumeDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.Student" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAAIArgCAQAACAACQAAAEoAIAAAAAIACkAYgAE=</HashCode>
+      <FileName>Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalBL.StudentDB" Collapsed="true">
+    <Position X="9.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAABAAAAAAAAAAAABIAgAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>StudentDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
