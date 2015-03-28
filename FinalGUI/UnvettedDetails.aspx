@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="CSS/Home.css" type="text/css" />
     <link rel="icon" href="images/favicon.ico" />
     
+<script>
+    function confirmation(action) {
+        if (confirm("Are you sure you want to " + action + " employer?"))
+            return true;
+        else return false;
+    }
+</script>
 </head>
 <body>
    <div id="wrapper">
@@ -28,8 +35,8 @@
                     No Data
                 </div>
                 <div id="InstructorControls" runat="server">
-                    <asp:Button OnClick="Approve" Text="Approve" runat="server"/>
-                    <asp:Button OnClick="Reject" Text="Reject" runat="server"/>
+                    <asp:Button onClientClick="return confirmation('approve');" OnClick="Approve" Text="Approve" runat="server"/>
+                    <asp:Button onClientClick="return confirmation('remove');" OnClick="Reject" Text="Reject" runat="server"/>
                 </div>
                 
             </div>

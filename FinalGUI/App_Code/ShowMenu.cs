@@ -21,11 +21,12 @@ namespace FinalGUI.ShowMenu
         public static string ShowStudent(string email)
         {
             string menu =
-                    "<div  class=\"menuItem\">" +
+                
+                    "<div  class=\"menuItemTop\">" +
                         "<a href=\"Home.aspx\">Home</a>" +
                     "</div>" +
                     "<div class=\"menuItem\" id=\"StuAccount1\" runat=\"server\">" +
-                        "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\">My Account</a>" +
+                        "<a href=\"MyAccount.aspx?email=" + HttpUtility.UrlEncode(StringEncryption.Encrypt(email)) + "\">My Account</a>" +
                     "</div>" +
                     "<div  class=\"menuItem\">" +
                         "<a href=\"Postings.aspx\">Postings</a>" +
@@ -34,12 +35,12 @@ namespace FinalGUI.ShowMenu
                         "<a href=\"UploadPracticum.aspx\">Upload Practicum</a>" +
                     "</div>" +
                     "<div class=\"menuItem\" id=\"StuAccount2\" runat=\"server\">" +
-                        "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\">Upload Résumé</a>" +
+                        "<a href=\"MyAccount.aspx?email=" + HttpUtility.UrlEncode(StringEncryption.Encrypt(email)) + "\">Upload Résumé</a>" +
                     "</div>" +
                     "<div class=\"menuItem\">" +
                         "<a href=\"Information.aspx\">Information</a>" +
                     "</div>" +
-                    "<div class=\"menuItem\">" +
+                    "<div class=\"menuItemBottom\">" +
                         "<a href=\"LogOut.aspx\">Log Out</a>" +
                     "</div>";
 
@@ -48,8 +49,8 @@ namespace FinalGUI.ShowMenu
 
         public static string ShowEmployer(string email)
         {
-            string menu = 
-                "<div  class=\"menuItem\">" +
+            string menu =
+                "<div  class=\"menuItemTop\">" +
                     "<a href=\"Home.aspx\">Home</a>" +
                "</div>" +               
                "<div class=\"menuItem\">" +
@@ -66,10 +67,10 @@ namespace FinalGUI.ShowMenu
                "</div>" +
                "<div class=\"menuItem\">" +
                     "<a href=\"Information.aspx\">Information</a>" +
-               "</div>" +            
-               "<div class=\"menuItem\">" +
+               "</div>" +
+               "<div class=\"menuItemBottom\">" +
                     "<a href=\"LogOut.aspx\">Log Out</a>" +
-               "</div>";
+                "</div>";
 
             return menu;
         }
@@ -77,7 +78,7 @@ namespace FinalGUI.ShowMenu
         public static string ShowInstructor(string email)
         {
             string menu =
-               "<div  class=\"menuItem\">" +
+               "<div  class=\"menuItemTop\">" +
                     "<a href=\"Home.aspx\">Home</a>" +
                "</div>" +               
                "<div class=\"menuItem\">" +
@@ -98,7 +99,7 @@ namespace FinalGUI.ShowMenu
                     "<a href=\"Information.aspx\">Information</a>" +
                 "</div>" +
 
-                "<div class=\"menuItem\">" +
+                "<div class=\"menuItemBottom\">" +
                     "<a href=\"LogOut.aspx\">Log Out</a>" +
                 "</div>";
 
@@ -108,7 +109,7 @@ namespace FinalGUI.ShowMenu
         public static string ShowAdmin(string email)
         {
             string menu =
-                    "<div  class=\"menuItem\">" +
+                    "<div  class=\"menuItemTop\">" +
                         "<a href=\"Home.aspx\">Home</a>" +
                     "</div>" +
                     
@@ -124,7 +125,7 @@ namespace FinalGUI.ShowMenu
                     "<div class=\"menuItem\">" +
                         "<a href=\"Information.aspx\">Information</a>" +
                     "</div>" +
-                    "<div class=\"menuItem\">" +
+                    "<div class=\"menuItemBottom\">" +
                         "<a href=\"LogOut.aspx\">Log Out</a>" +
                     "</div>";
 

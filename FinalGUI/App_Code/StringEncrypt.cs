@@ -1,11 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Data;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Linq;
 using System.Web;
-
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace FinalGUI.StringEncrypt
 {

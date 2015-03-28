@@ -50,8 +50,8 @@ public partial class HomeStudent : System.Web.UI.Page
     public void ShowStudent(string email)
     {
         StudentMenu.InnerHtml = ShowMenu.ShowStudent(email);
-        StuAccount2.InnerHtml = "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\">Go to My Account</a><br /><small>View and make schanges to your account.</small>";
-        StuAccount4.InnerHtml = "<a href=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\">Upload new Résumé</a><br /><small>Change your current résumé</small>";
+        StuAccount2.InnerHtml = "<a href=\"MyAccount.aspx?email=" + Server.UrlEncode(StringEncryption.Encrypt(email)) + "\">Go to My Account</a><br /><small>View and make schanges to your account.</small>";
+        StuAccount4.InnerHtml = "<a href=\"MyAccount.aspx?email=" + Server.UrlEncode(StringEncryption.Encrypt(email)) + "\">Upload new Résumé</a><br /><small>Change your current résumé</small>";
         StudentContent.Visible = true;
         
         EmployerMenu.Visible = false;

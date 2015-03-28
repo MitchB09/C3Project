@@ -77,8 +77,8 @@
                         <h2>Personal Info</h2>
                         <asp:Label Text="email: " CssClass="detailHeading" runat="server" /><br />
                         <asp:TextBox ID="txtEmail" CssClass="details" runat="server" />
-                        <asp:RequiredFieldValidator ControlToValidate="txtEMail" Text="*" ErrorMessage="email is Required" Display="Dynamic" runat="server"/>
-                        <asp:RegularExpressionValidator ValidationExpression="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" ControlToValidate="txtEMail" Text="*" ErrorMessage="email is Not Valid" Display="Dynamic" runat="server"/>
+                        <asp:RequiredFieldValidator ControlToValidate="txtEMail" Text="*" ErrorMessage="Email is Required" Display="Dynamic" runat="server"/>
+                        <asp:RegularExpressionValidator ValidationExpression="^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$" ControlToValidate="txtEMail" Text="*" ErrorMessage="Email is Not Valid" Display="Dynamic" runat="server"/>
 
                         <br />
 
@@ -110,6 +110,8 @@
                 </div>
                 <div id="CreateButton">
                     <asp:Button Text="Create Account" onClick="CreateAccount" runat="server"/>
+                    <br />
+                    <a href="LogIn.aspx">Back to Login</a>
                 </div>
                 
                 

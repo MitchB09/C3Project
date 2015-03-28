@@ -35,28 +35,54 @@
             <div id="Content" class="content" runat="server">
                 
                 <asp:RadioButton Text="From Post ID" ID="rbPostID" GroupName="FromSource" Checked="true" OnCheckedChanged="SourceChange" runat="server" AutoPostBack="true" />
-                <br />
-                <br />
-                <asp:Label CssClass="detailHeading" runat="server" Text="Post ID: " /><br />
-                <asp:TextBox CssClass="details" ID="txtPostID" runat="server" />
-                <br />
-                <br />
                 <asp:RadioButton Text="From Employer" ID="rbEmp" GroupName="FromSource" Checked="false" OnCheckedChanged="SourceChange" runat="server" AutoPostBack="true" />
+                
                 <br />
                 <br />
-                <asp:Label CssClass="detailHeading" runat="server" Text="Company: " /><br />
-                <asp:TextBox CssClass="details" ID="txtCompanyName" runat="server" Enabled="false"/>
-                <br />
-                <asp:Label CssClass="detailHeading" runat="server" Text="Contact: " /><br />
-                <asp:TextBox CssClass="details" ID="txtContactName" runat="server" Enabled="false"/>
-                <br />
-                <asp:Label CssClass="detailHeading" runat="server" Text="Email: " /><br />
-                <asp:TextBox CssClass="details" ID="txtContactEMail" runat="server" Enabled="false"/>
-                <br />                
-                <asp:Label CssClass="detailHeading" runat="server" Text="Additional Details: " /><br />
-                <asp:TextBox  CssClass="details" TextMode="MultiLine" Columns="50" Rows="5" ID="txtAddDetails" runat="server" Enabled="false"/>
-                <br />
-                <asp:Button runat="server" OnClick="SubmitPracticum" Text="Submit Practicum" />
+
+                <div id="fromPostId" runat="server">
+                    <asp:Label CssClass="detailHeading" runat="server" Text="Post ID: " /><br />
+                    <asp:TextBox CssClass="details" ID="txtPostID" runat="server" />
+                    <asp:RequiredFieldValidator ControlToValidate="txtPostID" ValidationGroup="1" Text="*" ErrorMessage="Post Id is Required" Display="Dynamic" runat="server"/>
+                    <br />
+                    <asp:ValidationSummary id="valSumPostID" ValidationGroup="1" HeaderText="The Following Fields are Required" ShowMessageBox="true" ShowSummary="false" EnableClientScript="true"  runat="server"/>
+                    <br />
+                    <asp:Button runat="server" OnClick="SubmitPracticum" ValidationGroup="1"  Text="Submit Practicum" />
+                </div>                
+                
+                <div id="fromEmployer" runat="server">                
+                    <asp:Label CssClass="detailHeading" runat="server" Text="Company: " />
+                    <br />
+                    <asp:TextBox CssClass="details" ID="txtCompanyName" runat="server" Enabled="false"/>
+                    <asp:RequiredFieldValidator ControlToValidate="txtCompanyName" ValidationGroup="2" Text="*" ErrorMessage="Company Name is Required" Display="Dynamic" runat="server"/>
+                    
+                    <br />
+
+                    <asp:Label CssClass="detailHeading" runat="server" Text="Contact: " />
+                    <br />
+                    <asp:TextBox CssClass="details" ID="txtContactName" runat="server" Enabled="false"/>
+                    <asp:RequiredFieldValidator ControlToValidate="txtContactName" ValidationGroup="2" Text="*" ErrorMessage="Contact Name is Required" Display="Dynamic" runat="server"/>
+                    
+                    <br />
+
+                    <asp:Label CssClass="detailHeading" runat="server" Text="Email: " />
+                    <br />
+                    <asp:TextBox CssClass="details" ID="txtContactEMail" runat="server" Enabled="false"/>
+                    <asp:RequiredFieldValidator ControlToValidate="txtContactEMail" ValidationGroup="2" Text="*" ErrorMessage="Contact Email is Required" Display="Dynamic" runat="server"/>
+                    <asp:RegularExpressionValidator ValidationExpression="^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$" ControlToValidate="txtContactEMail" Text="*"  ValidationGroup="2" ErrorMessage="Email is Not Valid" Display="Dynamic" runat="server"/>
+                    
+                    <br /> 
+                                   
+                    <asp:Label CssClass="detailHeading" runat="server" Text="Additional Details: " />
+                    <br />
+                    <asp:TextBox  CssClass="details" TextMode="MultiLine" Columns="50" Rows="5" ID="txtAddDetails" runat="server" Enabled="false"/>
+                    <asp:ValidationSummary id="valSum" ValidationGroup="2" HeaderText="The Following Fields are Required" ShowMessageBox="true" ShowSummary="false" EnableClientScript="true"  runat="server"/>
+                    
+                    <br />
+
+                    <asp:Button runat="server" OnClick="SubmitPracticum" ValidationGroup="2" Text="Submit Practicum" />
+
+                </div>
             </div>
              
             

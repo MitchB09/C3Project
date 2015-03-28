@@ -78,9 +78,9 @@ public partial class PostingDetails : System.Web.UI.Page
             }
             else
             {
-                EmployerDetails.InnerHtml = employer.getFirstName() + " " + employer.getLastName() + "<br />" + employer.getCompanyPosition() + " at " + employer.getCompanyName() + "<br />" + employer.getCompanyAddress() + " " + employer.getCompanyCity() + ", " + employer.getCompanyProvince() + "<br />Phone: " + employer.getPhoneNumber() + "<br />Email: " + employer.getEMail();
+                EmployerDetails.InnerHtml = employer.getFirstName() + " " + employer.getLastName() + "<br />" + employer.getCompanyPosition() + " at " + employer.getCompanyName() + "<br />" + employer.getCompanyAddress() + " " + employer.getCompanyCity() + ", " + employer.getCompanyProvince() + "<br />Phone: " + employer.getPhoneNumber();
             }
-            EmailDiv.InnerHtml = "<a href=\"mailto:" + posting.getEmpEmail() + "?subject=Posting\">Email</a>";            
+            EmailDiv.InnerHtml = "<a href=\"mailto:" + posting.getEmpEmail() + "?subject=Posting\">Email: " + posting.getEmpEmail() + "</a>";            
 
         }
         catch

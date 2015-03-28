@@ -39,6 +39,29 @@
                 <asp:Button Text="Add Students" onClick="AddStudents" runat="server" />
                 <br />
                 <br />
+
+                <div>
+                    <span class="postTitle">Add Student By Form</span><br />
+                    <span class="detailHeading">Email</span><br />
+                    <span class="details"><asp:TextBox runat="server" ID="txtEmail" /></span><br />
+                    <asp:RegularExpressionValidator ValidationGroup="1" ValidationExpression="^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$" ControlToValidate="txtEMail" Text="*" ErrorMessage="Email is Not Valid" Display="Dynamic" runat="server" />
+                    <span class="detailHeading">Student Id</span><br />
+                    <span class="details"><asp:TextBox runat="server" ID ="txtStudentId" /></span><br />
+                    <span class="detailHeading">First Name</span><br />
+                    <span class="details"><asp:TextBox runat="server" ID ="txtFirstName" /></span><br />
+                    <asp:RequiredFieldValidator ValidationGroup="1" ControlToValidate="txtFirstName" Text="*" ErrorMessage="First Name is Required" Display="Dynamic" runat="server"/>
+                    <span class="detailHeading">Last Name</span><br />
+                    <span class="details"><asp:TextBox runat="server" ID ="txtLastName" /></span><br />
+                    <asp:RequiredFieldValidator ValidationGroup="1" ControlToValidate="txtLastName" Text="*" ErrorMessage="Last is Required" Display="Dynamic" runat="server"/>
+                    <span class="detailHeading">Program Code</span><br />
+                    <span class="details"><asp:TextBox runat="server" ID ="txtProgramCode" /></span><br />
+                    <asp:RequiredFieldValidator ValidationGroup="1" ControlToValidate="txtProgramCode" Text="*" ErrorMessage="Program Code is Required" Display="Dynamic" runat="server"/>
+                    <span class="detailHeading">Campus</span><br />
+                    <span class="details"><asp:TextBox runat="server" ID ="txtCampus" /></span><br />
+                    <asp:RequiredFieldValidator ValidationGroup="1" ControlToValidate="txtCampus" Text="*" ErrorMessage="Campus is Required" Display="Dynamic" runat="server"/>
+                    <asp:ValidationSummary ValidationGroup="1" id="valSum" HeaderText="The Following Fields are Required" ShowMessageBox="true" ShowSummary="false" EnableClientScript="true"  runat="server"/>
+                    <asp:Button ValidationGroup="1" OnClick="AddStudentByForm" runat="server" Text="Add Student"/>
+                </div>
                 <span class="postTitle">Add Instructor by Excel</span>
                 <br />
                 <asp:FileUpload  ID="fulInstructorUpload" runat="server" />

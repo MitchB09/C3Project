@@ -328,5 +328,47 @@ namespace FinalBL
             
             return success;
         }
+
+        public static bool RejectPracticum(Practicum practicum)
+        {
+            bool success = false;
+
+            SqlConnection connection = FinalProjDB.getConnection();
+
+            SqlCommand updateCommand = new SqlCommand();
+
+            updateCommand.Connection = connection;
+            updateCommand.CommandText = "spRejectPracticum";
+            updateCommand.CommandType = CommandType.StoredProcedure;
+
+            updateCommand.Parameters.AddWithValue("@practicumId", practicum.getPracticumID());
+            updateCommand.Parameters["@practicumId"].Direction = ParameterDirection.Input;
+
+            try
+            {
+                connection.Open();
+
+                if (updateCommand.ExecuteNonQuery() > 0)
+                {
+                    if (practicum.getPostID() != 0)
+                    {
+                        PostingDB.FillPosting(practicum.getPostID());
+                    }
+                    success = true;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return success;
+        }
     }
 }

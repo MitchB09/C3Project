@@ -36,7 +36,7 @@
                 <asp:TextBox TextMode="Password" ID="psdNewPassword" runat="server" CssClass="details" />
                 <asp:RequiredFieldValidator ControlToValidate="psdNewPassword" Text="*" ErrorMessage="New Password is Required" Display="Dynamic" runat="server"/>
                 <br />                
-                <asp:Label Text="Confirm new Password" runat="server" CssClass="detailHeading" /><br />
+                <asp:Label Text="Confirm New Password" runat="server" CssClass="detailHeading" /><br />
                 <asp:TextBox TextMode="Password" ID="psdConfirmNewPasswd" runat="server" CssClass="details" />
                 <asp:RequiredFieldValidator ControlToValidate="psdConfirmNewPasswd" Text="*" ErrorMessage="Password Must be Confirmed" Display="Dynamic" runat="server"/>
                 <asp:CompareValidator ControlToValidate="psdConfirmNewPasswd" ControlToCompare="psdNewPassword" Operator="Equal" Text="*" ErrorMessage="Passwords Must Match" Display="Dynamic" runat="server" />

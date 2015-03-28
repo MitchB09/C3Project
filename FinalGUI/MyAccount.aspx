@@ -74,67 +74,11 @@
 
 
                 <div id="EmployerContent" class="content1" runat="server">
-                    <div class="homeMenuOption">
-                        <a href="#">Go to My Account</a>
-                        <br />
-                        <small>View and make schanges to your account.</small>
-                    </div>
-                    <hr />
-                    <div class="homeMenuOption">
-                        <a href="#">View Student Profiles</a>
-                        <br />
-                        <small>Check out all current available posings</small>
-                    </div>
-                    <hr />
-                    <div class="homeMenuOption">
-                        <a href="#">View List of Potential Employers</a>
-                        <br />
-                        <small>Check the list of potential employers in the province</small>
-                    </div>
-                    <hr />
-                    <div class="homeMenuOption">
-                        <a href="#">Upload new Posting</a>
-                        <br />
-                        <small>Change your current résumé</small>
-                    </div>
-                    <hr />
-                    <div class="homeMenuOption">
-                        <a href="#">View Practicum Information</a>
-                        <br />
-                        <small>View general information about the practicums</small>
-                    </div>
+                    
                 </div>
                 <div id="InstructorContent"  class="content1" runat="server">
-                    <div class="homeMenuOption">
-                        <a href="#">Go to My Account</a>
-                        <br />
-                        <small>View and make schanges to your account.</small>
-                    </div>
-                    <hr />
-                    <div class="homeMenuOption">
-                        <a href="#">Go to Current Postings</a>
-                        <br />
-                        <small>Check out all current available posings</small>
-                    </div>
-                    <hr />
-                    <div class="homeMenuOption">
-                        <a href="#">Edit List of Potential Employers</a>
-                        <br />
-                        <small>Check the list of potential employers in the province</small>
-                    </div>
-                    <hr />
-                    <div class="homeMenuOption">
-                        <a href="UnvettedEmployers.aspx">View Unvetted Employers</a>
-                        <br />
-                        <small>Change your current résumé</small>
-                    </div>
-                    <hr />
-                    <div class="homeMenuOption">
-                        <a href="#">View Pending Practicums</a>
-                        <br />
-                        <small>View general information about the practicums</small>
-                    </div>
-                </div> 
+                 
+               </div>   
             </div>
             
         </form>

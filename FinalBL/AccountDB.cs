@@ -17,12 +17,17 @@ namespace FinalBL
 
             SqlConnection connection = FinalProjDB.getConnection();
 
-            string SQL = "SELECT eMail, password, AccountType FROM account WHERE eMail = @eMail AND password = @password";
+            SqlCommand selectCommand = new SqlCommand();
 
-            SqlCommand selectCommand = new SqlCommand(SQL, connection);
+            selectCommand.Connection = connection;
+            selectCommand.CommandText = "spLogIn";
+            selectCommand.CommandType = CommandType.StoredProcedure;
 
             selectCommand.Parameters.AddWithValue("@eMail", eMail);
+            selectCommand.Parameters["@email"].Direction = ParameterDirection.Input;
+            
             selectCommand.Parameters.AddWithValue("@password", pass);
+            selectCommand.Parameters["@password"].Direction = ParameterDirection.Input;
 
             try
             {
@@ -64,14 +69,19 @@ namespace FinalBL
         {
             bool logInSuccess = false;
 
-            SqlConnection connection = FinalProjDB.getConnection();
+            SqlConnection connection = FinalProjDB.getConnection();            
 
-            string SQL = "SELECT COUNT(eMail) FROM account WHERE eMail = @eMail AND password = @password";
-
-            SqlCommand selectCommand = new SqlCommand(SQL, connection);
+            SqlCommand selectCommand = new SqlCommand();
+            
+            selectCommand.Connection = connection;
+            selectCommand.CommandText = "spLogInAttempt";
+            selectCommand.CommandType = CommandType.StoredProcedure;
 
             selectCommand.Parameters.AddWithValue("@eMail", eMail);
+            selectCommand.Parameters["@eMail"].Direction = ParameterDirection.Input;
+
             selectCommand.Parameters.AddWithValue("@password", password);
+            selectCommand.Parameters["@password"].Direction = ParameterDirection.Input;
 
             try
             {

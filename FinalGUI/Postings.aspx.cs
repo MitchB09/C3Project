@@ -73,6 +73,13 @@ public partial class Postings : System.Web.UI.Page
         {
             postingList = PostingDB.GetPostings(pageNum);
 
+            int numPages = (int)Math.Ceiling((double)PostingDB.GetPostingCount() / 5);
+
+            if (pageNum > numPages && numPages > 0)
+            {
+                HttpContext.Current.Response.Redirect("Postings.aspx");
+            }
+
             string content = "";
 
             //For each posting in list for this page(i.e. page 1 is postings 1 to 5)
@@ -92,10 +99,10 @@ public partial class Postings : System.Web.UI.Page
             }
 
             //add current page number of total page number
-            content += "&nbsp;Page " + pageNum + " of " + (int)Math.Ceiling((double)PostingDB.GetPostingCount() / 5) + "&nbsp;";
+            content += "&nbsp;Page " + pageNum + " of " + numPages + "&nbsp;";
 
             //If current page is less than total count page add a right arrow.
-            if (pageNum < (int)Math.Ceiling((double)PostingDB.GetPostingCount() / 5))
+            if (pageNum < numPages)
             {
                 content += "<a href=\"Postings.aspx?page=" + (pageNum + 1) + "\"><img src=\"images/RightArrow.png\" height=\"12px\" width=\"12px\"/></a>";
             }

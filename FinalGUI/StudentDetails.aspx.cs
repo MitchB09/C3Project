@@ -92,6 +92,7 @@ public partial class StudentDetails : System.Web.UI.Page
 
                 //intermet media type for a .pdf file
                 Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", @"attachment;filename=" + foundResume.getFileName() + "");
                 Response.BinaryWrite(foundResume.getDocData());
                 Response.End();
             }
@@ -112,6 +113,7 @@ public partial class StudentDetails : System.Web.UI.Page
 
                 //intermet media type for a .doc file
                 Response.ContentType = "application/msword";
+                Response.AddHeader("content-disposition", @"attachment;filename=" + foundResume.getFileName() + "");
                 Response.BinaryWrite(foundResume.getDocData());
                 Response.End();
             }

@@ -32,20 +32,27 @@
             <div id="Content" class="content" runat="server">
                 <asp:Label CssClass="detailHeading" runat="server" Text="Company: " /><br />
                 <asp:TextBox CssClass="details" ID="CompanyName" runat="server" />
+                <asp:RequiredFieldValidator ControlToValidate="ContactName" Text="*" ErrorMessage="Company Name is Required" Display="Dynamic" runat="server"/>
                 <br />
-                <asp:Label CssClass="detailHeading" runat="server" Text="Cotact: " /><br />
+                <asp:Label CssClass="detailHeading" runat="server" Text="Contact: " /><br />
                 <asp:TextBox CssClass="details" ID="ContactName" runat="server" />
+                <asp:RequiredFieldValidator ControlToValidate="ContactName" Text="*" ErrorMessage="Contact Name is Required" Display="Dynamic" runat="server"/>
                 <br />
                 <asp:Label CssClass="detailHeading" runat="server" Text="email: " /><br />
                 <asp:TextBox CssClass="details" ID="ContactEMail" runat="server" />
+                <asp:RequiredFieldValidator ControlToValidate="ContactEMail" Text="*" ErrorMessage="Contact Email is Required" Display="Dynamic" runat="server"/>
                 <br />
                 <asp:Label CssClass="detailHeading" runat="server" Text="Job Title: " /><br />
                 <asp:TextBox CssClass="details" ID="JobTitle" runat="server" />
+                <asp:RequiredFieldValidator ControlToValidate="JobTitle" Text="*" ErrorMessage="Job Title is Required" Display="Dynamic" runat="server"/>
                 <br />
                 <asp:Label CssClass="detailHeading" runat="server" Text="Additional Details: " /><br />
                 <asp:TextBox  CssClass="details" TextMode="MultiLine" Columns="50" Rows="5" ID="AddDetails" runat="server" />
+                <asp:RequiredFieldValidator ControlToValidate="AddDetails" Text="*" ErrorMessage="Additional Info is Required" Display="Dynamic" runat="server"/>
                 <br />
                 <asp:Button runat="server" OnClick="SubmitPosting" Text="Submit Posting" />
+
+                <asp:ValidationSummary id="valSum" HeaderText="The Following Fields are Required" ShowMessageBox="true" ShowSummary="false" EnableClientScript="true"  runat="server"/>
             </div>
              
             

@@ -92,13 +92,16 @@ namespace FinalBL
         {
             bool approvedEmployer = false;
 
-            SqlConnection connection = FinalProjDB.getConnection();
+            SqlConnection connection = FinalProjDB.getConnection();            
 
-            string SQL = "SELECT approvedEmployer FROM Employer WHERE eMail = @eMail";
+            SqlCommand selectCommand = new SqlCommand();
 
-            SqlCommand selectCommand = new SqlCommand(SQL, connection);
+            selectCommand.Connection = connection;
+            selectCommand.CommandText = "spCheckArrovedEmployer";
+            selectCommand.CommandType = CommandType.StoredProcedure;
 
             selectCommand.Parameters.AddWithValue("@eMail", eMail);
+            selectCommand.Parameters["@email"].Direction = ParameterDirection.Input;
 
             try
             {
@@ -110,7 +113,7 @@ namespace FinalBL
                 {
                     if (!reader.IsDBNull(0))
                     {
-                        approvedEmployer = (bool)reader["approvedEmployer"];
+                        approvedEmployer = reader.GetBoolean(0);
                     }
                    
                 }
@@ -264,6 +267,43 @@ namespace FinalBL
 
                 updated = updateCommand.ExecuteNonQuery();
                 
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return updated;
+        }
+
+        public static int RejectEmployer(string empEMail)
+        {
+
+            int updated = 0;
+
+            SqlConnection connection = FinalProjDB.getConnection();
+
+            SqlCommand updateCommand = new SqlCommand();
+
+            updateCommand.Connection = connection;
+            updateCommand.CommandText = "spRemoveEmployer";
+            updateCommand.CommandType = CommandType.StoredProcedure;
+
+            updateCommand.Parameters.AddWithValue("@eMail", empEMail);
+            updateCommand.Parameters["@eMail"].Direction = ParameterDirection.Input;
+
+            try
+            {
+                connection.Open();
+
+                updated = updateCommand.ExecuteNonQuery();
+
             }
 
             catch (Exception ex)

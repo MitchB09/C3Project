@@ -17,15 +17,26 @@ namespace FinalBL
         {
             SqlConnection connection = FinalProjDB.getConnection();
 
-            string SQL = "INSERT INTO Resume(eMail, fileName, fileType, dateAdded, docData) VALUES (@eMail, @fileName, @fileType,@dateAdded, @docData)";
+            SqlCommand insertCommand = new SqlCommand();
 
-            SqlCommand insertCommand = new SqlCommand(SQL, connection);
+            insertCommand.Connection = connection;
+            insertCommand.CommandText = "spInsertResume";
+            insertCommand.CommandType = CommandType.StoredProcedure;
 
-            insertCommand.Parameters.AddWithValue("@eMail", eMail);
+            insertCommand.Parameters.AddWithValue("@email", eMail);
+            insertCommand.Parameters["@email"].Direction = ParameterDirection.Input;
+
             insertCommand.Parameters.AddWithValue("@fileName", fileName);
+            insertCommand.Parameters["@fileName"].Direction = ParameterDirection.Input;
+
             insertCommand.Parameters.AddWithValue("@fileType", fileType);
+            insertCommand.Parameters["@fileType"].Direction = ParameterDirection.Input;
+
             insertCommand.Parameters.AddWithValue("@dateAdded", dateAdded);
+            insertCommand.Parameters["@dateAdded"].Direction = ParameterDirection.Input;
+
             insertCommand.Parameters.AddWithValue("@docData", documentBinary);
+            insertCommand.Parameters["@docData"].Direction = ParameterDirection.Input;
 
             int result = 0;
 
@@ -50,15 +61,26 @@ namespace FinalBL
         {
             SqlConnection connection = FinalProjDB.getConnection();
 
-            string SQL = "UPDATE Resume SET fileName = @fileName, fileType =  @fileType, dateAdded = @dateAdded, docData = @docData WHERE eMail = @eMail";
+            SqlCommand updateCommand = new SqlCommand();
 
-            SqlCommand updateCommand = new SqlCommand(SQL, connection);
+            updateCommand.Connection = connection;
+            updateCommand.CommandText = "spUpdateResume";
+            updateCommand.CommandType = CommandType.StoredProcedure;
 
-            updateCommand.Parameters.AddWithValue("@eMail", eMail);
+            updateCommand.Parameters.AddWithValue("@email", eMail);
+            updateCommand.Parameters["@email"].Direction = ParameterDirection.Input;
+
             updateCommand.Parameters.AddWithValue("@fileName", fileName);
+            updateCommand.Parameters["@fileName"].Direction = ParameterDirection.Input;
+
             updateCommand.Parameters.AddWithValue("@fileType", fileType);
+            updateCommand.Parameters["@fileType"].Direction = ParameterDirection.Input;
+
             updateCommand.Parameters.AddWithValue("@dateAdded", dateAdded);
+            updateCommand.Parameters["@dateAdded"].Direction = ParameterDirection.Input;
+
             updateCommand.Parameters.AddWithValue("@docData", documentBinary);
+            updateCommand.Parameters["@docData"].Direction = ParameterDirection.Input;
 
             int result = 0;
 
@@ -83,11 +105,14 @@ namespace FinalBL
         {
             SqlConnection connection = FinalProjDB.getConnection();
 
-            string SQL = "SELECT fileName, fileType, dateAdded, docData FROM Resume WHERE eMail = @eMail";
+            SqlCommand selectCommand = new SqlCommand();
 
-            SqlCommand selectCommand = new SqlCommand(SQL, connection);
+            selectCommand.Connection = connection;
+            selectCommand.CommandText = "spGetResume";
+            selectCommand.CommandType = CommandType.StoredProcedure;
 
-            selectCommand.Parameters.AddWithValue("@eMail", eMail);
+            selectCommand.Parameters.AddWithValue("@email", eMail);
+            selectCommand.Parameters["@email"].Direction = ParameterDirection.Input;
 
             Resume resume = new Resume();                   
 
@@ -126,11 +151,14 @@ namespace FinalBL
         {
             SqlConnection connection = FinalProjDB.getConnection();
 
-            string SQL = "SELECT fileName, fileType FROM Resume WHERE eMail = @eMail";
+            SqlCommand selectCommand = new SqlCommand();
 
-            SqlCommand selectCommand = new SqlCommand(SQL, connection);
+            selectCommand.Connection = connection;
+            selectCommand.CommandText = "spGetResumeName";
+            selectCommand.CommandType = CommandType.StoredProcedure;
 
-            selectCommand.Parameters.AddWithValue("@eMail", eMail);
+            selectCommand.Parameters.AddWithValue("@email", eMail);
+            selectCommand.Parameters["@email"].Direction = ParameterDirection.Input;
 
             Resume resume = new Resume();
 
@@ -167,11 +195,14 @@ namespace FinalBL
         {
             SqlConnection connection = FinalProjDB.getConnection();
 
-            string SQL = "SELECT Count(fileName) FROM Resume WHERE eMail = @eMail";
+            SqlCommand selectCommand = new SqlCommand();
 
-            SqlCommand selectCommand = new SqlCommand(SQL, connection);
+            selectCommand.Connection = connection;
+            selectCommand.CommandText = "spFindResume";
+            selectCommand.CommandType = CommandType.StoredProcedure;
 
-            selectCommand.Parameters.AddWithValue("@eMail", eMail);
+            selectCommand.Parameters.AddWithValue("@email", eMail);
+            selectCommand.Parameters["@email"].Direction = ParameterDirection.Input;
 
             bool found = false;
 

@@ -47,12 +47,17 @@ public partial class UploadPracticum : System.Web.UI.Page
         {
             ShowAdmin(email);            
         }
+
+        fromEmployer.Visible = false;
     }
     
     protected void SourceChange(object sender, EventArgs e)
     {
         if (rbPostID.Checked)
         {
+            fromEmployer.Visible = false;
+            fromPostId.Visible = true;
+
             txtPostID.Enabled = true;
             txtCompanyName.Enabled = false;
             txtContactName.Enabled = false;
@@ -61,6 +66,9 @@ public partial class UploadPracticum : System.Web.UI.Page
         }
         else if(rbEmp.Checked)
         {
+            fromEmployer.Visible = true;
+            fromPostId.Visible = false;
+
             txtPostID.Enabled = false;
             txtCompanyName.Enabled = true;
             txtContactName.Enabled = true;
@@ -87,12 +95,12 @@ public partial class UploadPracticum : System.Web.UI.Page
 
                     PracticumDB.insertPracticum(practicum);
 
-                    string script = "<script type=\"text/javascript\">alert('Practicum Is Now Pending Approval.');</script>";
+                    string script = "<script type=\"text/javascript\">alert('Practicum Is Now Pending Approval.');window.location = \"UploadPracticum.aspx\"</script>";
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
                 }
                 else
                 {
-                    string script = "<script type=\"text/javascript\">alert('Posting does not exist or has been removed.');</script>";
+                    string script = "<script type=\"text/javascript\">alert('Posting does not exist or has been removed.');window.location = \"UploadPracticum.aspx\"</script>";
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
                 }
                 
@@ -100,12 +108,12 @@ public partial class UploadPracticum : System.Web.UI.Page
             }
             catch(FormatException)
             {
-                string script = "<script type=\"text/javascript\">alert('Post ID must be a number.');</script>";
+                string script = "<script type=\"text/javascript\">alert('Post ID must be a number.');window.location = \"UploadPracticum.aspx\"</script>";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
             }
             catch(Exception ex)
             {
-                string script = "<script type=\"text/javascript\">alert('An Error has occured." + ex.Message + ".');</script>";
+                string script = "<script type=\"text/javascript\">alert('An Error has occured." + ex.Message + ".');window.location = \"UploadPracticum.aspx\"</script>";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
             }
         }
@@ -123,13 +131,13 @@ public partial class UploadPracticum : System.Web.UI.Page
 
                 PracticumDB.insertPracticum(practicum);
 
-                string script = "<script type=\"text/javascript\">alert('Practicum Is Now Pending Approval.');</script>";
+                string script = "<script type=\"text/javascript\">alert('Practicum Is Now Pending Approval.');window.location = \"UploadPracticum.aspx\"</script>";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
 
             }
             catch (Exception ex)
             {
-                string script = "<script type=\"text/javascript\">alert('An Error has occured." + ex.Message + ".');</script>";
+                string script = "<script type=\"text/javascript\">alert('An Error has occured." + ex.Message + ".');window.location = \"UploadPracticum.aspx\"</script>";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
             }
 

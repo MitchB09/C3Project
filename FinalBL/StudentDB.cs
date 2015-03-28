@@ -18,9 +18,11 @@ namespace FinalBL
 
             SqlConnection connection = FinalProjDB.getConnection();
 
-            string SQL = "SELECT eMail, studentID, firstName, lastName, programCode, campus FROM Student";
+            SqlCommand selectCommand = new SqlCommand();
 
-            SqlCommand selectCommand = new SqlCommand(SQL, connection);                 
+            selectCommand.Connection = connection;
+            selectCommand.CommandText = "spGetStudentDisplayList";
+            selectCommand.CommandType = CommandType.StoredProcedure;
 
             try
             {
@@ -66,11 +68,14 @@ namespace FinalBL
 
             SqlConnection connection = FinalProjDB.getConnection();
 
-            string SQL = "SELECT eMail, studentID, firstName, lastName, programCode, phoneNumber, address, city, campus, additionalInfo FROM Student WHERE eMail = @eMail";
+            SqlCommand selectCommand = new SqlCommand();
 
-            SqlCommand selectCommand = new SqlCommand(SQL, connection);
+            selectCommand.Connection = connection;
+            selectCommand.CommandText = "spGetStudentByEmail";
+            selectCommand.CommandType = CommandType.StoredProcedure;
 
-            selectCommand.Parameters.AddWithValue("@eMail", eMail);
+            selectCommand.Parameters.AddWithValue("@email", eMail);
+            selectCommand.Parameters["@email"].Direction = ParameterDirection.Input;
             
             try
             {
@@ -244,8 +249,8 @@ namespace FinalBL
             return studentList;
         }
 
-        public static int InsertStudent(string email, string password, string studentID, string firstName, string lastName,
-            string programCode, string phoneNumber, string address, string city, string campus, string additionalInfo)
+        public static int InsertStudent(Student student/*string email, string password, string studentID, string firstName, string lastName,
+            string programCode, string phoneNumber, string address, string city, string campus, string additionalInfo */)
         {
             int createdAccount = 0;                  
 
@@ -266,8 +271,8 @@ namespace FinalBL
                 insertAccount.CommandText = "spInsertAccount";
                 insertAccount.CommandType = CommandType.StoredProcedure;
 
-                insertAccount.Parameters.AddWithValue("@eMail", email);
-                insertAccount.Parameters.AddWithValue("@password", password);
+                insertAccount.Parameters.AddWithValue("@eMail", student.getEMail());
+                insertAccount.Parameters.AddWithValue("@password", student.getPassword());
                 insertAccount.Parameters.AddWithValue("@accountType", "Student");
 
                 insertAccount.Parameters["@eMail"].Direction = ParameterDirection.Input;
@@ -279,16 +284,16 @@ namespace FinalBL
                 insertStudent.CommandText = "spInsertStudent";
                 insertStudent.CommandType = CommandType.StoredProcedure;
 
-                insertStudent.Parameters.AddWithValue("@eMail", email);
-                insertStudent.Parameters.AddWithValue("@studentID", studentID);
-                insertStudent.Parameters.AddWithValue("@firstName", firstName);
-                insertStudent.Parameters.AddWithValue("@lastName", lastName);
-                insertStudent.Parameters.AddWithValue("@programCode", programCode);                
-                insertStudent.Parameters.AddWithValue("@phoneNumber", phoneNumber);
-                insertStudent.Parameters.AddWithValue("@address", address);
-                insertStudent.Parameters.AddWithValue("@city", city);
-                insertStudent.Parameters.AddWithValue("@campus", campus);
-                insertStudent.Parameters.AddWithValue("@additionalInfo", additionalInfo);
+                insertStudent.Parameters.AddWithValue("@eMail", student.getEMail());
+                insertStudent.Parameters.AddWithValue("@studentID", student.getStudentID());
+                insertStudent.Parameters.AddWithValue("@firstName", student.getFirstName());
+                insertStudent.Parameters.AddWithValue("@lastName", student.getLastName());
+                insertStudent.Parameters.AddWithValue("@programCode", student.getProgram());                
+                insertStudent.Parameters.AddWithValue("@phoneNumber", student.getPhoneNumber());
+                insertStudent.Parameters.AddWithValue("@address", student.getAddress());
+                insertStudent.Parameters.AddWithValue("@city", student.getCity());
+                insertStudent.Parameters.AddWithValue("@campus", student.getCampus());
+                insertStudent.Parameters.AddWithValue("@additionalInfo", student.getAdditionalInfo());
 
                 insertStudent.Parameters["@eMail"].Direction = ParameterDirection.Input;
                 insertStudent.Parameters["@studentID"].Direction = ParameterDirection.Input;

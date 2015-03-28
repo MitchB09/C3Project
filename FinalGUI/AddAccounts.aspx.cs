@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 using Excel;
 using FinalGUI.ShowMenu;
@@ -21,6 +22,7 @@ public partial class TestingExcel : System.Web.UI.Page
 {
 
     string email = "";
+    Regex matchEmail = new Regex("^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$");
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -80,8 +82,9 @@ public partial class TestingExcel : System.Web.UI.Page
                     for (int i = 1; i < table.Rows.Count; i++)
                     {
                         string email = table.Rows[i].ItemArray[0].ToString();
+                        
 
-                        if (!AccountDB.FindAccountByEmail(email))
+                        if (matchEmail.IsMatch(email) && !AccountDB.FindAccountByEmail(email))
                         {
 
                             string studentID = table.Rows[i].ItemArray[1].ToString();
@@ -101,8 +104,10 @@ public partial class TestingExcel : System.Web.UI.Page
 
                             string password = Convert.ToBase64String(byteValues).Substring(0, 8);
 
-                            studentsEntered += StudentDB.InsertStudent(email, StringEncryption.Encrypt(password), studentID, firstName, lastName, programCode,
+                            Student student = new Student(email, StringEncryption.Encrypt(password), studentID, firstName, lastName, programCode,
                                 phone, address, city, campus, additionalInfo);
+
+                            studentsEntered += StudentDB.InsertStudent(student);
 
                             MailMessage mail = new MailMessage();
 
@@ -114,7 +119,7 @@ public partial class TestingExcel : System.Web.UI.Page
                             //
                             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
                             smtp.EnableSsl = true;
-                            smtp.Timeout = 300000;
+                            smtp.Timeout = 900000;
                             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                             //
                             smtp.Credentials = new NetworkCredential("C3ProjectNBCC@gmail.com", "Jack & Jill");
@@ -183,7 +188,7 @@ public partial class TestingExcel : System.Web.UI.Page
                     {
                         string email = table.Rows[i].ItemArray[0].ToString();
 
-                        if (!AccountDB.FindAccountByEmail(email))
+                        if (matchEmail.IsMatch(email) && !AccountDB.FindAccountByEmail(email))
                         {
 
                             string firstName = table.Rows[i].ItemArray[1].ToString();
@@ -243,6 +248,58 @@ public partial class TestingExcel : System.Web.UI.Page
             string errorScript = "<script type=\"text/javascript\">alert('Either there is no entered file or it is not an excel file.');</script>";
             ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", errorScript);
         }
+    }
+
+    protected void AddStudentByForm(object sender, EventArgs e)
+    {      
+
+        Student student = new Student();
+        student.setEMail(txtEmail.Text);
+        student.setStudentID(txtStudentId.Text);
+        student.setFirstName(txtFirstName.Text);
+        student.setLastName(txtLastName.Text);
+        student.setProgram(txtProgramCode.Text);
+        student.setCampus(txtCampus.Text);
+
+        RNGCryptoServiceProvider rngCSP = new RNGCryptoServiceProvider();
+        string seedString = "MBILENSKY009";
+        byte[] byteValues = Encoding.Unicode.GetBytes(seedString);
+        rngCSP.GetBytes(byteValues);
+
+        string password = Convert.ToBase64String(byteValues).Substring(0, 8);
+
+        student.setPassword(StringEncryption.Encrypt(password));
+
+        try
+        {
+            if (StudentDB.InsertStudent(student) > 0)
+            {
+                MailMessage mail = new MailMessage();
+
+                mail.From = new MailAddress("C3ProjectNBCC@gmail.com");
+                mail.To.Add(email);
+                //
+                mail.Subject = "C3 Project Password";
+                mail.Body = "Here is your password: " + password + ".";
+                //
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                smtp.EnableSsl = true;
+                smtp.Timeout = 300000;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //
+                smtp.Credentials = new NetworkCredential("C3ProjectNBCC@gmail.com", "Jack & Jill");
+                smtp.Send(mail);
+
+                string errorScript = "<script type=\"text/javascript\">alert('Successfully entered student.');window.location = \"AddAccounts.aspx\";</script>";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", errorScript);
+            }
+        }
+        catch (Exception ex)
+        {
+            string errorScript = "<script type=\"text/javascript\">alert('An Error occured entering student.\n Error: " + ex.Message + "');</script>";
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", errorScript);
+        }
+        
 
 
     }

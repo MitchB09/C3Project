@@ -37,7 +37,7 @@ public partial class MyAccount : System.Web.UI.Page
         {
             HttpContext.Current.Response.Redirect("Home.aspx");
         }
-        else if (Session["usertype"] == null || StringEncryption.Decrypt(Request.QueryString["email"]) != email)
+        else if (Session["usertype"] == null || Server.UrlDecode(StringEncryption.Decrypt(Request.QueryString["email"])) != email)
         {
             HttpContext.Current.Response.Redirect("LogIn.aspx");
         }
@@ -191,7 +191,12 @@ public partial class MyAccount : System.Web.UI.Page
         {
             if (StudentDB.SelfUpdateStudent(email, phoneNumber, address, city, additionalInfo) > 0)
             {
-                string script = "<script type=\"text/javascript\">alert('Account Successfully Updated.');window.location=\"MyAccount.aspx?email=" + StringEncryption.Encrypt(email) + "\";</script>";
+                string script = "<script type=\"text/javascript\">alert('Account Successfully Updated.');window.location=\"MyAccount.aspx?email=" + Server.UrlEncode(StringEncryption.Encrypt(email)) + "\";</script>";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+            }
+            else
+            {
+                string script = "<script type=\"text/javascript\">alert('Account Did Not Update.');window.location=\"MyAccount.aspx?email=" + Server.UrlEncode(StringEncryption.Encrypt(email)) + "\";</script>";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
             }
         }

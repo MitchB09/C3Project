@@ -144,47 +144,59 @@ public partial class PracticumDetails : System.Web.UI.Page
     public void RejectPracticum(object sender, EventArgs e)
     {
         Practicum practicum = new Practicum();
-        practicum = PracticumDB.GetPracticumByID(practicumID);
 
-        string reason = txtReason.Text;
-        //
-        //PostingDB.RemovePosting(posting, email, reason);
-        //
-        MailMessage mail = new MailMessage();
-
-        mail.From = new MailAddress("C3ProjectNBCC@gmail.com");
-        mail.To.Add(practicum.getStuEmail());
-
-        if (practicum.getPostID() == 0)
+        try
         {
-            mail.To.Add(practicum.getEmpEmail());
-            mail.Subject = "C3 Posting Removal";
-            mail.Body = "Your pending practicum with \"" + practicum.getCompany() + "\" has been denied."
-                + "\n Reason: " + reason + ".";
+            practicum = PracticumDB.GetPracticumByID(practicumID);
+
+            if (PracticumDB.RejectPracticum(practicum))
+            {
+                string reason = txtReason.Text;
+
+                MailMessage mail = new MailMessage();
+
+                mail.From = new MailAddress("C3ProjectNBCC@gmail.com");
+                mail.To.Add(practicum.getStuEmail());
+
+                if (practicum.getPostID() == 0)
+                {
+                    mail.To.Add(practicum.getEmpEmail());
+                    mail.Subject = "C3 Practicum Rejection";
+                    mail.Body = "Your pending practicum with \"" + practicum.getCompany() + "\" has been denied."
+                        + "\n Reason: " + reason + ".";
+                }
+                else
+                {
+                    Posting posting = PostingDB.GetPostingByPostID(practicum.getPostID());
+                    mail.To.Add(posting.getEmpEmail());
+                    mail.Subject = "C3 Practicum Rejection";
+                    mail.Body = "Your pending practicum with \"" + posting.getCompany() + "\" has been denied."
+                        + "\n Reason: " + reason + ".";
+                }
+
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                smtp.EnableSsl = true;
+                smtp.Timeout = 300000;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //
+                smtp.Credentials = new NetworkCredential("C3ProjectNBCC@gmail.com", "Jack & Jill");
+                smtp.Send(mail);
+
+                string script = "<script type=\"text/javascript\">alert('Successfully Removed Posting.');window.location = \"BrowsePracticums.aspx\"</script>";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+            }
+            else
+            {
+                string script = "<script type=\"text/javascript\">alert('An Error Has Occured.');window.location = \"BrowsePracticums.aspx\"</script>";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+            }    
         }
-        else
+        catch (Exception ex)
         {
-            Posting posting = PostingDB.GetPostingByPostID(practicum.getPostID());
-            mail.To.Add(posting.getEmpEmail());
-            mail.Subject = "C3 Posting Removal";
-            mail.Body = "Your pending practicum with \"" + posting.getCompany() + "\" has been denied."
-                + "\n Reason: " + reason + ".";
+            string script = "<script type=\"text/javascript\">alert('An Error Has Occured. " + ex.Message + "');window.location = \"BrowsePracticums.aspx\"</script>";
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
         }
-
         
-        //
-        
-        //
-        SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-        smtp.EnableSsl = true;
-        smtp.Timeout = 300000;
-        smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-        //
-        smtp.Credentials = new NetworkCredential("C3ProjectNBCC@gmail.com", "Jack & Jill");
-        smtp.Send(mail);
-
-        string script = "<script type=\"text/javascript\">alert('Successfully Removed Posting.');window.location = \"BrowsePracticums.aspx\"</script>";
-        ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
     }
 
     public void ShowStudent(string email)

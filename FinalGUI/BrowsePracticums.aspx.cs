@@ -47,7 +47,7 @@ public partial class BrowsePracticums : System.Web.UI.Page
         }
         else if (Session["usertype"].ToString() == "Instructor")
         {
-            ShowEmployer(email);
+            ShowInstructor(email);
             ShowContent(page);
         }
         else if (Session["usertype"].ToString() == "Admin")

@@ -26,6 +26,7 @@ public partial class InfoDetails : System.Web.UI.Page
             {
                 Response.Clear();
                 Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", @"attachment;filename=" + file.getFileName() + "");
                 Response.BinaryWrite(file.getFileData());
                 Response.End();
             }

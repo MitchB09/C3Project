@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="CSS/Home.css" type="text/css" />
     <link rel="icon" href="images/favicon.ico" />
     
+<script>
+    function confirmation() {
+        if (confirm("Are you sure you want to remove posting?"))
+            return true;
+        else return false;
+    }
+</script>
 </head>
 <body>
    <div id="wrapper">
@@ -41,7 +48,7 @@
                 </div>
                 <br />
                 <asp:Button runat="server" OnClick="EditPosting" Text="Edit Posting" />&nbsp;&nbsp;&nbsp;
-                <asp:Button runat="server" OnClick="RemovePosting" Text="RemovePosting" />
+                <asp:Button runat="server" OnClientClick="return confirmation();" OnClick="RemovePosting" Text="RemovePosting" />
 
             </div>
             <div id="EditContent" runat="server" class="content">

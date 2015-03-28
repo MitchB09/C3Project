@@ -12,8 +12,13 @@ public partial class CreateEmployerAccount : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        
     }
+    protected void ReturnToLogin(object sender, EventArgs e)
+    {
+        Server.Transfer("Login.aspx");
+    }
+
     protected void CreateAccount(object sender, EventArgs e)
     {
         string email = txtEmail.Text;

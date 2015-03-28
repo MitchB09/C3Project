@@ -54,7 +54,7 @@ public partial class UnvettedDetails : System.Web.UI.Page
             unvettedEmployer = EmployerDB.EmployerByEMail(empEMail);
 
             content = unvettedEmployer.getCompanyName() + "<br /><br />" + unvettedEmployer.getFullName() + "<br />" + unvettedEmployer.getCompanyPosition() + "<br />" + unvettedEmployer.getCompanyAddress() + " " + unvettedEmployer.getCompanyCity() + ", " + unvettedEmployer.getCompanyProvince() +
-                "<br />" + "Phone: " + unvettedEmployer.getPhoneNumber() + "<br />email: " + unvettedEmployer.getEMail();
+                "<br />" + "Phone: " + unvettedEmployer.getPhoneNumber() + "<br />email: <a href=\"mailto:" + unvettedEmployer.getEMail() + "\">" + unvettedEmployer.getEMail() + "</a>";
 
             EmployerDetails.InnerHtml = content;
         }
@@ -75,24 +75,52 @@ public partial class UnvettedDetails : System.Web.UI.Page
 
     protected void Approve(object sender, EventArgs e)
     {
-        if (EmployerDB.ApproveEmployer(empEMail) > 0)
+        try
         {
-            //Shows successful approval and then redirects to listing page
-            string script = "<script type=\"text/javascript\">alert('Successfully Approved Employer.');window.location = \"UnvettedEmployers.aspx\";</script>";
-            ClientScript.RegisterStartupScript(this.GetType(), "Alert", script);
-                        
+            if (EmployerDB.ApproveEmployer(empEMail) > 0)
+            {
+                //Shows successful approval and then redirects to listing page
+                string script = "<script type=\"text/javascript\">alert('Successfully Approved Employer.');window.location = \"UnvettedEmployers.aspx\";</script>";
+                ClientScript.RegisterStartupScript(this.GetType(), "Alert", script);
+
+            }
+            else
+            {
+                string script = "<script type=\"text/javascript\">alert('An Error Has Occurred.');</script>";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+            }
         }
-        else
+        catch(Exception ex)
         {
-            string script = "<script type=\"text/javascript\">alert('An Error Has Occurred.');</script>";
-            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);            
+            string script = "<script type=\"text/javascript\">alert('An Error Has Occurred. " + ex.Message+ "' );</script>";
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
         }
+        
         
     }
 
     protected void Reject(object sender, EventArgs e)
     {
-        //Move Employer to new table?
+        try
+        {
+            if (EmployerDB.RejectEmployer(empEMail) > 0)
+            {
+                //Shows successful approval and then redirects to listing page
+                string script = "<script type=\"text/javascript\">alert('Successfully Removed Employer.');window.location = \"UnvettedEmployers.aspx\";</script>";
+                ClientScript.RegisterStartupScript(this.GetType(), "Alert", script);
+
+            }
+            else
+            {
+                string script = "<script type=\"text/javascript\">alert('An Error Has Occurred.');</script>";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+            }
+        }
+        catch (Exception ex)
+        {
+            string script = "<script type=\"text/javascript\">alert('An Error Has Occurred. " + ex.Message + "' );</script>";
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", script);
+        }
     }
 
     protected void Redirect()
