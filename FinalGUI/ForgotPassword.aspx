@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <form id="LogInForm"
+        <form id="ResetForm"
               name="frmLogIn"
               runat="server"
               >

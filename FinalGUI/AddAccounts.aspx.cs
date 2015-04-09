@@ -135,7 +135,7 @@ public partial class TestingExcel : System.Web.UI.Page
             }
             catch (Exception ex)
             {
-                string successScript = "<script type=\"text/javascript\">alert('" + ex.Message + " Shit Happened.');</script>";
+                string successScript = "<script type=\"text/javascript\">alert('Exception: " + ex.Message + ".');</script>";
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", successScript);
             }
 
@@ -190,12 +190,13 @@ public partial class TestingExcel : System.Web.UI.Page
 
                         if (matchEmail.IsMatch(email) && !AccountDB.FindAccountByEmail(email))
                         {
-
-                            string firstName = table.Rows[i].ItemArray[1].ToString();
-                            string lastName = table.Rows[i].ItemArray[2].ToString();
-                            string program = table.Rows[i].ItemArray[3].ToString();
-                            string campus = table.Rows[i].ItemArray[4].ToString();
-                            string contactInfo = table.Rows[i].ItemArray[5].ToString();
+                            Instructor instructor = new Instructor();
+                            instructor.setEMail(email);
+                            instructor.setFirstName(table.Rows[i].ItemArray[1].ToString());
+                            instructor.setLastName(table.Rows[i].ItemArray[2].ToString());
+                            instructor.setProgram(table.Rows[i].ItemArray[3].ToString());
+                            instructor.setCampus(table.Rows[i].ItemArray[4].ToString());
+                            instructor.setContactInfo(table.Rows[i].ItemArray[5].ToString());
 
                             RNGCryptoServiceProvider rngCSP = new RNGCryptoServiceProvider();
                             string seedString = "MBILENSKY009";
@@ -204,7 +205,7 @@ public partial class TestingExcel : System.Web.UI.Page
 
                             string password = Convert.ToBase64String(byteValues).Substring(0, 8);
 
-                            instructorsAdded += InstructorDB.InsertInstructor(email, StringEncryption.Encrypt(password), firstName, lastName, program, campus, contactInfo);
+                            instructorsAdded += InstructorDB.InsertInstructor(instructor);
 
                             MailMessage mail = new MailMessage();
 
@@ -251,8 +252,8 @@ public partial class TestingExcel : System.Web.UI.Page
     }
 
     protected void AddStudentByForm(object sender, EventArgs e)
-    {      
-
+    {
+        
         Student student = new Student();
         student.setEMail(txtEmail.Text);
         student.setStudentID(txtStudentId.Text);
@@ -300,6 +301,61 @@ public partial class TestingExcel : System.Web.UI.Page
             ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", errorScript);
         }
         
+
+
+    }
+
+    protected void AddInstructorByForm(object sender, EventArgs e)
+    {
+
+        Instructor instructor = new Instructor();
+        instructor.setEMail(txtInstEmail.Text);
+        instructor.setFirstName(txtInsFirstName.Text);
+        instructor.setLastName(txtInsLastName.Text);
+        instructor.setProgram(txtInsProgCode.Text);
+        instructor.setCampus(txtInsCampus.Text);
+        instructor.setContactInfo(txtContactInfo.Text);      
+        
+
+        RNGCryptoServiceProvider rngCSP = new RNGCryptoServiceProvider();
+        string seedString = "MBILENSKY009";
+        byte[] byteValues = Encoding.Unicode.GetBytes(seedString);
+        rngCSP.GetBytes(byteValues);
+
+        string password = Convert.ToBase64String(byteValues).Substring(0, 8);
+
+        instructor.setPassword(StringEncryption.Encrypt(password));
+
+        try
+        {
+            if (InstructorDB.InsertInstructor(instructor) > 0)
+            {
+                MailMessage mail = new MailMessage();
+
+                mail.From = new MailAddress("C3ProjectNBCC@gmail.com");
+                mail.To.Add(email);
+                //
+                mail.Subject = "C3 Project Password";
+                mail.Body = "Here is your password: " + password + ".";
+                //
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                smtp.EnableSsl = true;
+                smtp.Timeout = 300000;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //
+                smtp.Credentials = new NetworkCredential("C3ProjectNBCC@gmail.com", "Jack & Jill");
+                smtp.Send(mail);
+
+                string errorScript = "<script type=\"text/javascript\">alert('Successfully Entered Instructor.');window.location = \"AddAccounts.aspx\";</script>";
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", errorScript);
+            }
+        }
+        catch (Exception ex)
+        {
+            string errorScript = "<script type=\"text/javascript\">alert('An Error occured entering Instructor.\n Error: " + ex.Message + "');</script>";
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", errorScript);
+        }
+
 
 
     }

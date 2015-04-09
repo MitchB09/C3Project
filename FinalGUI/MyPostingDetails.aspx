@@ -12,7 +12,8 @@
     function confirmation() {
         if (confirm("Are you sure you want to remove posting?"))
             return true;
-        else return false;
+        else
+            return false;
     }
 </script>
 </head>

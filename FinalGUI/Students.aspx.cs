@@ -49,7 +49,7 @@ public partial class Students : System.Web.UI.Page
             }
             else
             {
-                UnvettedContent();
+                UnvettedContent(page);
                 ShowEmployer(email);
             }
         }
@@ -129,20 +129,42 @@ public partial class Students : System.Web.UI.Page
         }
     }
 
-    public void UnvettedContent()
+    public void UnvettedContent(int pageNum)
     {
         List<Student> studentList = new List<Student>();
 
         try
         {
-            studentList = StudentDB.getStudentDisplayList();
+            studentList = StudentDB.getStudentRange(pageNum);
 
             string content = "";
 
             foreach (Student student in studentList)
             {
-                content += "<div class=\"student\">" + student.getFirstName() + " " + student.getLastName().Substring(0,1) + "<br />" + student.getProgram() + "<br />" + student.getCampus() + "</div><hr />";
+                content += "<div class=\"student\">" + student.getFirstName() + " " + student.getLastName().Substring(0,1) + ".<br />" + student.getProgram() + "<br />" + student.getCampus() + "</div><hr />";
             }
+
+            //Start div for pageListing
+            content += "<div id=\"pageListing\">";
+
+            //If the page number is greater then 1 add a left arrow.
+            if (pageNum > 1)
+            {
+                content += "<a href=\"Students.aspx?page=" + (pageNum - 1) + "\"><img src=\"images/LeftArrow.png\" height=\"12px\" width=\"12px\"/></a>";
+            }
+
+            //add current page number of total page number
+            content += "&nbsp;Page " + pageNum + " of " + (int)Math.Ceiling((double)StudentDB.StudentCount() / 5) + "&nbsp;";
+
+            //If current page is less than total count page add a right arrow.
+            if (pageNum < (int)Math.Ceiling((double)StudentDB.StudentCount() / 5))
+            {
+                content += "<a href=\"Students.aspx?page=" + (pageNum + 1) + "\"><img src=\"images/RightArrow.png\" height=\"12px\" width=\"12px\"/></a>";
+            }
+
+            //end div for pageListing
+            content += "</div>";
+
             StudentContent.InnerHtml = content;
         }
         catch (Exception ex)

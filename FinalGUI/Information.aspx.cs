@@ -28,43 +28,23 @@ public partial class Information : System.Web.UI.Page
 
         if (Session["usertype"] == null)
         {
-            UnknownMenu.Visible = true;
-            StudentMenu.Visible = false;
-            EmployerMenu.Visible = false;
-            InstructorMenu.Visible = false;
+            ShowUnknown();
         }
         else if (Session["usertype"].ToString() == "Student")
         {
-            UnknownMenu.Visible = false;
-            StudentMenu.InnerHtml = ShowMenu.ShowStudent(email);
-            EmployerMenu.Visible = false;
-            InstructorMenu.Visible = false;
-            AdminMenu.Visible = false;
+            ShowStudent(email);
         }
         else if (Session["usertype"].ToString() == "Employer")
         {
-            UnknownMenu.Visible = false;
-            EmployerMenu.InnerHtml = ShowMenu.ShowEmployer(email);
-            StudentMenu.Visible = false;            
-            InstructorMenu.Visible = false;
-            AdminMenu.Visible = false;
+            ShowEmployer(email);
         }
         else if (Session["usertype"].ToString() == "Instructor")
         {
-            UnknownMenu.Visible = false;
-            InstructorMenu.InnerHtml = ShowMenu.ShowInstructor(email);
-            StudentMenu.Visible = false;
-            EmployerMenu.Visible = false;
-            AdminMenu.Visible = false;
+            ShowInstructor(email);
         }
         else if (Session["usertype"].ToString() == "Admin")
-        {            
-            UnknownMenu.Visible = false;
-            InstructorMenu.Visible = false;
-            StudentMenu.Visible = false;
-            EmployerMenu.Visible = false;
-            AdminMenu.InnerHtml = ShowMenu.ShowAdmin(email);
-            AdminContols.Visible = true;
+        {
+            ShowAdmin(email);
         }
 
         try
@@ -141,6 +121,70 @@ public partial class Information : System.Web.UI.Page
             }
 
         }
+    }
+    public void ShowStudent(string email)
+    {
+        StudentMenu.InnerHtml = ShowMenu.ShowStudent(email);
+
+        EmployerMenu.Visible = false;
+
+        InstructorMenu.Visible = false;
+
+        AdminMenu.Visible = false;
+
+        UnknownMenu.Visible = false;
+    }
+
+    public void ShowEmployer(string email)
+    {
+        StudentMenu.Visible = false;
+
+        EmployerMenu.InnerHtml = ShowMenu.ShowEmployer(email);
+
+        InstructorMenu.Visible = false;
+
+        AdminMenu.Visible = false;
+
+        UnknownMenu.Visible = false;
+    }
+
+    public void ShowInstructor(string email)
+    {
+        StudentMenu.Visible = false;
+
+        EmployerMenu.Visible = false;
+
+        InstructorMenu.InnerHtml = ShowMenu.ShowInstructor(email);
+
+        AdminMenu.Visible = false;
+
+        UnknownMenu.Visible = false;
+    }
+
+    public void ShowAdmin(string email)
+    {
+        StudentMenu.Visible = false;
+
+        EmployerMenu.Visible = false;
+
+        InstructorMenu.Visible = false;
+
+        AdminMenu.InnerHtml = ShowMenu.ShowAdmin(email);
+
+        UnknownMenu.Visible = false;
+    }
+
+    public void ShowUnknown()
+    {
+        StudentMenu.Visible = false;
+
+        EmployerMenu.Visible = false;
+
+        InstructorMenu.Visible = false;
+
+        AdminMenu.Visible = false;
+
+        UnknownMenu.InnerHtml = ShowMenu.ShowUnknown();
     }
     
 }

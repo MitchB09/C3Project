@@ -61,19 +61,19 @@
                 <div class="homeMenuOption">
                     <a href="Students.aspx">View Student Profiles</a>
                     <br />
-                    <small>Check out all current available posings</small>
+                    <small>Browse through current students in the program.</small>
                 </div>
                 <hr />
                 <div class="homeMenuOption">
                     <a href="MyPostings.aspx">View My Postings</a>
                     <br />
-                    <small>Check the list of potential employers in the province</small>
+                    <small>View and edit postings that you have created.</small>
                 </div>
                 <hr />
                 <div class="homeMenuOption">
                     <a href="CreatePosting.aspx">Upload new Posting</a>
                     <br />
-                    <small>Change your current résumé</small>
+                    <small>Create a posting that students can view</small>
                 </div>
                 <hr />
                 <div class="homeMenuOption" id="EmpAccount2" runat="server">

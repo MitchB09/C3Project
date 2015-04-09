@@ -75,15 +75,16 @@ public partial class BrowsePracticums : System.Web.UI.Page
                 //For each posting in list for this page(i.e. page 1 is postings 1 to 5)
                 foreach (Practicum practicum in practicumList)
                 {
+                    Student student = StudentDB.StudentByEMail(practicum.getStuEmail());
                     if (practicum.getPostID() == 0)
                     {
-                        content += "<div class=\"posting\"><a href=\"PracticumDetails.aspx?practicumID=" + StringEncryption.Encrypt(practicum.getPracticumID().ToString()) + "\">" + practicum.getCompany() + "</a><br />" + practicum.getStuEmail() + "<br />Date Added: " +
+                        content += "<div class=\"posting\"><a href=\"PracticumDetails.aspx?practicumID=" + StringEncryption.Encrypt(practicum.getPracticumID().ToString()) + "\">" + practicum.getCompany() + "</a><br />" + student.getFullName() + "<br />Date Added: " +
                         practicum.getDateAdded().ToShortDateString() + "</div><hr />";
                     }
                     else
                     {
                         Posting posting = PostingDB.GetPostingByPostID(practicum.getPostID());
-                        content += "<div class=\"posting\"><a href=\"PracticumDetails.aspx?practicumID=" + StringEncryption.Encrypt(practicum.getPracticumID().ToString()) + "\">" + posting.getCompany() + "</a><br />" + practicum.getStuEmail() + "<br />Date Added: " +
+                        content += "<div class=\"posting\"><a href=\"PracticumDetails.aspx?practicumID=" + StringEncryption.Encrypt(practicum.getPracticumID().ToString()) + "\">" + posting.getCompany() + "</a><br />" + student.getFullName() + "<br />Date Added: " +
                         practicum.getDateAdded().ToShortDateString() + "</div><hr />";
                     }
                 }

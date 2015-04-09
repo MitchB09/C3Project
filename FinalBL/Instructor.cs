@@ -26,6 +26,10 @@ namespace FinalBL
             setContactInfo(contactInfo);
         }
             
+        public Instructor()
+        {
+
+        }
 
         //Getters
         public string getFirstName()

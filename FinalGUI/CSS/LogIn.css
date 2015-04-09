@@ -73,3 +73,44 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+#ResetForm{
+    
+    
+    margin: 10px;
+    text-align: left;
+}
+
+#ResetForm img{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#ResetForm label{
+    font-size: 24px;
+    
+}
+
+#ResetForm input[type="text"]{
+    font-size: 24px;
+    width: 99%;
+}
+
+#ResetForm input[type="password"]{
+    font-size: 24px;
+    width: 99%;
+}
+
+#ResetForm input[type="submit"]{
+    background-image: url("../Images/Send.png");
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    width: 63px;
+    height: 33px;
+    background-color: none;
+    cursor: pointer;
+    outline: 0;
+    float: right;
+    margin-top: 8px;
+    
+}

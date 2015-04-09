@@ -12,8 +12,7 @@ namespace FinalBL
 {
     public class InstructorDB
     {
-        public static int InsertInstructor(string email, string password, string firstName, string lastName,
-            string program, string campus, string contactInfo)
+        public static int InsertInstructor(Instructor instructor)
         {
             int createdAccount = 0;
 
@@ -34,8 +33,8 @@ namespace FinalBL
                 insertAccount.CommandText = "spInsertAccount";
                 insertAccount.CommandType = CommandType.StoredProcedure;
 
-                insertAccount.Parameters.AddWithValue("@eMail", email);
-                insertAccount.Parameters.AddWithValue("@password", password);
+                insertAccount.Parameters.AddWithValue("@eMail", instructor.getEMail());
+                insertAccount.Parameters.AddWithValue("@password", instructor.getPassword());
                 insertAccount.Parameters.AddWithValue("@accountType", "Instructor");
 
                 insertAccount.Parameters["@eMail"].Direction = ParameterDirection.Input;
@@ -47,12 +46,12 @@ namespace FinalBL
                 insertInstructor.CommandText = "spInsertInstructor";
                 insertInstructor.CommandType = CommandType.StoredProcedure;
 
-                insertInstructor.Parameters.AddWithValue("@eMail", email);
-                insertInstructor.Parameters.AddWithValue("@firstName", firstName);
-                insertInstructor.Parameters.AddWithValue("@lastName", lastName);
-                insertInstructor.Parameters.AddWithValue("@program", program);
-                insertInstructor.Parameters.AddWithValue("@campus", campus);
-                insertInstructor.Parameters.AddWithValue("@contactInfo", contactInfo);
+                insertInstructor.Parameters.AddWithValue("@eMail", instructor.getEMail());
+                insertInstructor.Parameters.AddWithValue("@firstName", instructor.getFirstName());
+                insertInstructor.Parameters.AddWithValue("@lastName", instructor.getLastName());
+                insertInstructor.Parameters.AddWithValue("@program", instructor.getProgram());
+                insertInstructor.Parameters.AddWithValue("@campus", instructor.getCampus());
+                insertInstructor.Parameters.AddWithValue("@contactInfo", instructor.getContactInfo());
 
                 insertInstructor.Parameters["@eMail"].Direction = ParameterDirection.Input;
                 insertInstructor.Parameters["@firstName"].Direction = ParameterDirection.Input;

@@ -131,5 +131,18 @@ namespace FinalGUI.ShowMenu
 
             return menu;
         }
+
+        public static string ShowUnknown()
+        {
+            string menu =
+                    "<div  class=\"menuItemTop\">" +
+                        "<a href=\"LogIn.aspx\">Log In</a>" +
+                    "</div>" +
+                    "<div class=\"menuItemBottom\">" +
+                        "<a href=\"CreateEmployerAccount.aspx\">Create Account</a>" +
+                    "</div>";
+
+            return menu;
+        }
     }
 }
